@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>経営者の悩みの本質 - その根源を探る</title>
+    <style>
+        /* ベーススタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans&family=Playfair+Display:ital@1&display=swap');
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            color: #333;
+            background-color: #f7f7f7;
+            overflow: hidden;
+        }
+        
+        /* カラーパレット */
+        :root {
+            --primary: #0F3460;
+            --secondary: #1A7BA3;
+            --accent: #F95C59;
+            --bg-white: #F7F7F7;
+            --bg-light: #E8E8E8;
+        }
+        
+        /* フォントスタイル */
+        h1, .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        h2, h3, .heading {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+        
+        /* スライドコンテナ */
+        .slide-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* スライドベース */
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            background-color: var(--bg-white);
+            padding: 4% 10%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+        }
+        
+        /* スライドコンテンツレイアウト */
+        .slide-header {
+            margin-bottom: 30px;
+        }
+        
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .slide-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--primary);
+            border-top: 1px solid var(--secondary);
+            padding-top: 10px;
+        }
+        
+        /* タイトルスライド特別スタイル */
+        .title-slide {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .title-slide h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .title-slide h2 {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            font-weight: normal;
+        }
+        
+        .presenter-info {
+            margin-top: 60px;
+            font-size: 1.2em;
+        }
+        
+        /* リスト要素 */
+        ul.check-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        ul.check-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        ul.check-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        /* 波紋効果 */
+        .ripple {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        
+        .ripple-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            z-index: 5;
+        }
+        
+        .ripple-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        
+        .ripple-circle:nth-child(2) {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .ripple-circle:nth-child(3) {
+            width: 160px;
+            height: 160px;
+            opacity: 0.5;
+        }
+        
+        .ripple-circle:nth-child(4) {
+            width: 220px;
+            height: 220px;
+            opacity: 0.3;
+        }
+        
+        .ripple-circle:nth-child(5) {
+            width: 280px;
+            height: 280px;
+            opacity: 0.1;
+        }
+        
+        /* 孤独な人物シルエット */
+        .lonely-figure {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: relative;
+        }
+        
+        .lonely-figure::before {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 120px;
+            background-color: var(--primary);
+            bottom: 0;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .lonely-figure::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary);
+            bottom: 120px;
+            border-radius: 50%;
+        }
+        
+        /* 二律背反の選択 */
+        .balance {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+        }
+        
+        .balance-item {
+            width: 45%;
+            text-align: center;
+            padding: 20px;
+            background-color: var(--bg-light);
+            border-radius: 10px;
+        }
+        
+        .balance-item h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        
+        .balance-divider {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--secondary);
+        }
+        
+        /* 成長する植物 */
+        .growing-plant {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: relative;
+        }
+        
+        .plant-stem {
+            width: 8px;
+            height: 150px;
+            background-color: #4CAF50;
+            position: relative;
+        }
+        
+        .plant-leaf {
+            position: absolute;
+            width: 50px;
+            height: 20px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+        }
+        
+        .plant-leaf:nth-child(1) {
+            transform: rotate(45deg);
+            left: -30px;
+            top: 40px;
+        }
+        
+        .plant-leaf:nth-child(2) {
+            transform: rotate(-45deg);
+            right: -30px;
+            top: 70px;
+        }
+        
+        .plant-leaf:nth-child(3) {
+            transform: rotate(45deg);
+            left: -35px;
+            top: 100px;
+        }
+        
+        .plant-light {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255,235,59,0.8) 0%, rgba(255,235,59,0) 70%);
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* ナビゲーションコントロール */
+        .slide-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background-color: var(--primary);
+        }
+        
+        .slide-counter {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: var(--primary);
+            font-size: 14px;
+            z-index: 100;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 4% 5%;
+            }
+            
+            .title-slide h1 {
+                font-size: 2em;
+            }
+            
+            .title-slide h2 {
+                font-size: 1.2em;
+            }
+            
+            ul.check-list li {
+                font-size: 1em;
+            }
+            
+            .balance {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .balance-item {
+                width: 90%;
+                margin-bottom: 20px;
+            }
+            
+            .balance-divider {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- スライド1: タイトル -->
+        <div class="slide title-slide active" id="slide1">
+            <div class="slide-content">
+                <h1>経営者の悩みの本質</h1>
+                <h2>その根源を探る</h2>
+                <div class="presenter-info">
+                    <p>講師：山田太郎</p>
+                    <p>第1回：経営者支援セミナー</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- スライド2: この回で学ぶこと -->
+        <div class="slide" id="slide2">
+            <div class="slide-header">
+                <h2>この回で学ぶこと</h2>
+            </div>
+            <div class="slide-content">
+                <ul class="check-list">
+                    <li>経営者の悩みの根本的な原因を理解する</li>
+                    <li>不確実性と責任の狭間での決断の本質を知る</li>
+                    <li>経営の二律背反と向き合う思考法を学ぶ</li>
+                </ul>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">2</div>
+            </div>
+        </div>
+        
+        <!-- スライド3: 悩みの根源 - イントロダクション -->
+        <div class="slide" id="slide3">
+            <div class="slide-header">
+                <h2>悩みの根源 - イントロダクション</h2>
+            </div>
+            <div class="slide-content">
+                <h3 style="color: var(--primary); margin-bottom: 30px;">なぜ経営者は悩むのか？</h3>
+                <p style="font-size: 1.2em; line-height: 1.8;">
+                    経営者の悩みには共通の根源があります。<br>
+                    それは「不確実性」と「責任」の交差点に<br>
+                    立たされていることにあります。
+                </p>
+                <div style="display: flex; justify-content: center; margin-top: 30px;">
+                    <div style="position: relative; width: 300px; height: 200px;">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 32px; color: var(--primary);">本質</div>
+                        <div style="position: absolute; top: 20%; left: 20%; font-size: 28px; color: var(--secondary);">?</div>
+                        <div style="position: absolute; top: 30%; left: 70%; font-size: 24px; color: var(--secondary);">?</div>
+                        <div style="position: absolute; top: 70%; left: 30%; font-size: 26px; color: var(--secondary);">?</div>
+                        <div style="position: absolute; top: 75%; left: 80%; font-size: 22px; color: var(--secondary);">?</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">3</div>
+            </div>
+        </div>
+        
+        <!-- スライド4: 不確実性との闘い - 市場の予測不可能性 -->
+        <div class="slide" id="slide4">
+            <div class="slide-header">
+                <h2>不確実性との闘い</h2>
+                <h3>市場の予測不可能性</h3>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 30px;">ビジネス環境は常に変化し、予測を裏切ります。</p>
+                <div style="width: 100%; height: 250px; position: relative; overflow: hidden;">
+                    <svg width="100%" height="100%" viewBox="0 0 500 250">
+                        <!-- 軸 -->
+                        <line x1="50" y1="220" x2="450" y2="220" stroke="#333" stroke-width="2" />
+                        <line x1="50" y1="50" x2="50" y2="220" stroke="#333" stroke-width="2" />
+                        
+                        <!-- 軸ラベル -->
+                        <text x="250" y="245" text-anchor="middle">時間</text>
+                        <text x="25" y="135" text-anchor="middle" transform="rotate(-90, 25, 135)">業績</text>
+                        
+                        <!-- 予測線 -->
+                        <path d="M50,180 Q150,140 250,110 T450,50" stroke="blue" stroke-width="2" stroke-dasharray="5,5" fill="none" />
+                        
+                        <!-- 実績線 -->
+                        <path d="M50,180 Q100,190 150,170 Q200,150 250,190 Q300,220 350,150 Q400,100 450,140" stroke="#F95C59" stroke-width="3" fill="none" />
+                        
+                        <!-- 凡例 -->
+                        <circle cx="380" cy="30" r="5" fill="blue" />
+                        <text x="390" y="35" font-size="12">予測</text>
+                        
+                        <circle cx="380" cy="50" r="5" fill="#F95C59" />
+                        <text x="390" y="55" font-size="12">実績</text>
+                    </svg>
+                </div>
+                <p style="font-style: italic; color: #666; text-align: center; margin-top: 20px;">
+                    「計画は最初の戦いで崩れる」 - フォン・モルトケ
+                </p>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">4</div>
+            </div>
+        </div>
+        
+        <!-- スライド5: 不確実性との闘い - 情報の不完全性 -->
+        <div class="slide" id="slide5">
+            <div class="slide-header">
+                <h2>不確実性との闘い</h2>
+                <h3>情報の不完全性</h3>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 30px;">決断に必要な情報が常に不足しています。</p>
+                <div style="display: flex; justify-content: center; align-items: center; height: 250px;">
+                    <div style="position: relative; width: 350px; height: 350px;">
+                        <!-- パズルピース -->
+                        <div style="position: absolute; top: 50px; left: 50px; width: 100px; height: 100px; background-color: var(--secondary); border-radius: 10px;"></div>
+                        <div style="position: absolute; top: 50px; left: 160px; width: 100px; height: 100px; background-color: var(--secondary); border-radius: 10px;"></div>
+                        <div style="position: absolute; top: 160px; left: 50px; width: 100px; height: 100px; background-color: var(--secondary); border-radius: 10px;"></div>
+                        <!-- 欠けたパズルピース（点線の枠のみ） -->
+                        <div style="position: absolute; top: 160px; left: 160px; width: 100px; height: 100px; border: 2px dashed var(--secondary); border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+                            <span style="font-size: 36px; color: var(--secondary);">?</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="quote" style="text-align: center; margin-top: 20px; color: #666;">
+                    「完全な情報を待っていたら、決断のタイミングを逃す」
+                </p>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">5</div>
+            </div>
+        </div>
+        
+        <!-- スライド6: 責任の重さと孤独 - 決断の影響範囲 -->
+        <div class="slide" id="slide6">
+            <div class="slide-header">
+                <h2>責任の重さと孤独</h2>
+                <h3>決断の影響範囲</h3>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 20px;">経営者の一つの決断が広範囲に影響を及ぼします。</p>
+                <div class="ripple">
+                    <div class="ripple-center"></div>
+                    <div class="ripple-circle"></div>
+                    <div class="ripple-circle"></div>
+                    <div class="ripple-circle"></div>
+                    <div class="ripple-circle"></div>
+                </div>
+                <p style="text-align: center; margin-top: 30px;">
+                    <strong>影響を受ける範囲:</strong> 従業員、取引先、顧客、地域社会、そして自分自身
+                </p>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">6</div>
+            </div>
+        </div>
+        
+        <!-- スライド7: 責任の重さと孤独 - 最終判断の孤独 -->
+        <div class="slide" id="slide7">
+            <div class="slide-header">
+                <h2>責任の重さと孤独</h2>
+                <h3>最終判断の孤独</h3>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 20px;">アドバイスを受けても、最終判断は経営者一人の責任です。</p>
+                <div class="lonely-figure"></div>
+                <div class="quote" style="text-align: center; margin-top: 30px; color: #666;">
+                    「最も孤独を感じるのは、重要な決断を下す瞬間だ。その瞬間、誰も代わりに決めてくれない。」<br>
+                    - 中小企業経営者の声
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">7</div>
+            </div>
+        </div>
+        
+        <!-- スライド8: 二律背反の選択 - 概念説明 -->
+        <div class="slide" id="slide8">
+            <div class="slide-header">
+                <h2>二律背反の選択</h2>
+                <h3>相反する価値の間で</h3>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 30px;">経営には「どちらも正しい」選択肢の間で決断する場面が常に存在します。</p>
+                <div style="display: flex; justify-content: center; margin-bottom: 30px;">
+                    <svg width="200" height="100" viewBox="0 0 200 100">
+                        <!-- 天秤 -->
+                        <line x1="100" y1="30" x2="100" y2="60" stroke="#333" stroke-width="4" />
+                        <line x1="50" y1="60" x2="150" y2="60" stroke="#333" stroke-width="4" />
+                        <circle cx="50" cy="70" r="10" fill="#0F3460" />
+                        <circle cx="150" cy="70" r="10" fill="#1A7BA3" />
+                    </svg>
+                </div>
+                <p style="text-align: center; font-size: 1.1em;">
+                    正解のない選択を、限られた情報と時間の中で行わなければなりません。
+                </p>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">8</div>
+            </div>
+        </div>
+        
+        <!-- スライド9: 二律背反の選択 - 具体例 -->
+        <div class="slide" id="slide9">
+            <div class="slide-header">
+                <h2>二律背反の選択</h2>
+                <h3>具体例</h3>
+            </div>
+            <div class="slide-content">
+                <div class="balance">
+                    <div class="balance-item">
+                        <h3>短期的視点</h3>
+                        <p>即時の利益</p>
+                        <p>確実性重視</p>
+                        <p>数値で可視化</p>
+                    </div>
+                    <div class="balance-divider">VS</div>
+                    <div class="balance-item">
+                        <h3>長期的視点</h3>
+                        <p>将来の成長</p>
+                        <p>可能性重視</p>
+                        <p>感覚的判断も必要</p>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 20px;">
+                    これらは<strong>どちらも重要</strong>であり、単純な正解はありません。
+                </p>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">9</div>
+            </div>
+        </div>
+        
+        <!-- スライド10: 二律背反の選択 - 影響 -->
+        <div class="slide" id="slide10">
+            <div class="slide-header">
+                <h2>二律背反の選択</h2>
+                <h3>その影響</h3>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 30px;">選択によって会社の進む道が大きく変わります。</p>
+                <div style="display: flex; justify-content: center;">
+                    <svg width="400" height="200" viewBox="0 0 400 200">
+                        <!-- 分岐図 -->
+                        <line x1="50" y1="100" x2="150" y2="100" stroke="#333" stroke-width="3" />
+                        <line x1="150" y1="100" x2="250" y2="50" stroke="#0F3460" stroke-width="3" />
+                        <line x1="150" y1="100" x2="250" y2="150" stroke="#1A7BA3" stroke-width="3" />
+                        <line x1="250" y1="50" x2="350" y2="30" stroke="#0F3460" stroke-width="3" />
+                        <line x1="250" y1="50" x2="350" y2="70" stroke="#0F3460" stroke-width="3" />
+                        <line x1="250" y1="150" x2="350" y2="130" stroke="#1A7BA3" stroke-width="3" />
+                        <line x1="250" y1="150" x2="350" y2="170" stroke="#1A7BA3" stroke-width="3" />
+                        
+                        <circle cx="50" cy="100" r="10" fill="#333" />
+                        <circle cx="150" cy="100" r="10" fill="#333" />
+                        <circle cx="250" cy="50" r="10" fill="#0F3460" />
+                        <circle cx="250" cy="150" r="10" fill="#1A7BA3" />
+                        <circle cx="350" cy="30" r="8" fill="#0F3460" />
+                        <circle cx="350" cy="70" r="8" fill="#0F3460" />
+                        <circle cx="350" cy="130" r="8" fill="#1A7BA3" />
+                        <circle cx="350" cy="170" r="8" fill="#1A7BA3" />
+                        
+                        <text x="150" y="80" text-anchor="middle">決断ポイント</text>
+                        <text x="300" y="20" text-anchor="middle" font-size="12">シナリオA</text>
+                        <text x="300" y="180" text-anchor="middle" font-size="12">シナリオB</text>
+                    </svg>
+                </div>
+                <p style="text-align: center; margin-top: 20px; font-style: italic;">
+                    「重要なのは決断したことではなく、その決断をどう実行するか」
+                </p>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">10</div>
+            </div>
+        </div>
+        
+        <!-- スライド11: 悩みの価値 -->
+        <div class="slide" id="slide11">
+            <div class="slide-header">
+                <h2>悩みの価値</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.3em; text-align: center; margin-bottom: 30px;">
+                    悩むことは弱さではなく、<br>
+                    良い経営者の証です。
+                </p>
+                <p style="font-size: 1.1em; text-align: center; margin-bottom: 40px;">
+                    悩むからこそ、より深く考え、<br>
+                    より良い決断ができるようになります。
+                </p>
+                <div class="growing-plant">
+                    <div class="plant-light"></div>
+                    <div class="plant-stem">
+                        <div class="plant-leaf"></div>
+                        <div class="plant-leaf"></div>
+                        <div class="plant-leaf"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">11</div>
+            </div>
+        </div>
+        
+        <!-- スライド12: 実践ヒント -->
+        <div class="slide" id="slide12">
+            <div class="slide-header">
+                <h2>実践ヒント</h2>
+                <h3>悩みと向き合うために</h3>
+            </div>
+            <div class="slide-content">
+                <ul class="check-list">
+                    <li>決断の<strong>優先順位</strong>をつける - すべての決断に同じエネルギーを使わない</li>
+                    <li><strong>思考のプロセス</strong>を大切にする - 結果だけでなく考える過程にも価値がある</li>
+                    <li>信頼できる<strong>相談相手</strong>を持つ - 異なる視点から問題を見る機会を作る</li>
+                </ul>
+                <p style="margin-top: 40px; text-align: center; font-style: italic; color: #666;">
+                    「完璧を目指すより、継続的な改善を」
+                </p>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">12</div>
+            </div>
+        </div>
+        
+        <!-- スライド13: まとめ -->
+        <div class="slide" id="slide13">
+            <div class="slide-header">
+                <h2>まとめ</h2>
+                <h3>重要ポイント</h3>
+            </div>
+            <div class="slide-content">
+                <div style="display: flex; flex-direction: column; gap: 30px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background-color: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">1</div>
+                        <p style="font-size: 1.1em; margin: 0;">経営者の悩みの根源は<strong>不確実性</strong>と<strong>責任</strong>の交差点にあります</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background-color: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">2</div>
+                        <p style="font-size: 1.1em; margin: 0;"><strong>二律背反</strong>の選択を迫られることが経営の本質的な難しさです</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background-color: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">3</div>
+                        <p style="font-size: 1.1em; margin: 0;">悩みから<strong>学び</strong>、悩みを<strong>力</strong>に変えることが成長につながります</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">13</div>
+            </div>
+        </div>
+        
+        <!-- スライド14: 質問と対話 -->
+        <div class="slide" id="slide14">
+            <div class="slide-header">
+                <h2>質問と対話</h2>
+                <h3>ディスカッションポイント</h3>
+            </div>
+            <div class="slide-content">
+                <div style="background-color: var(--bg-light); padding: 30px; border-radius: 10px; margin-bottom: 30px;">
+                    <p style="font-size: 1.3em; text-align: center; margin: 0;">
+                        あなたにとって最も難しい「二律背反」は何ですか？<br>
+                        それにどう向き合っていますか？
+                    </p>
+                </div>
+                <div style="display: flex; justify-content: center; margin-top: 20px;">
+                    <svg width="200" height="120" viewBox="0 0 200 120">
+                        <!-- 対話を象徴する吹き出しアイコン -->
+                        <path d="M50,10 L150,10 C165,10 180,25 180,40 L180,70 C180,85 165,100 150,100 L120,100 L100,120 L80,100 L50,100 C35,100 20,85 20,70 L20,40 C20,25 35,10 50,10 Z" fill="none" stroke="var(--secondary)" stroke-width="3" />
+                        <circle cx="70" cy="55" r="8" fill="var(--secondary)" />
+                        <circle cx="100" cy="55" r="8" fill="var(--secondary)" />
+                        <circle cx="130" cy="55" r="8" fill="var(--secondary)" />
+                    </svg>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">14</div>
+            </div>
+        </div>
+        
+        <!-- ナビゲーションコントロール -->
+        <div class="slide-nav">
+            <button class="nav-btn" id="prev-btn">◀</button>
+            <button class="nav-btn" id="next-btn">▶</button>
+        </div>
+        
+        <!-- スライドカウンター -->
+        <div class="slide-counter" id="slide-counter">1 / 14</div>
+    </div>
+    
+    <script>
+        // スライド制御スクリプト
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+            
+            // スライドを表示する関数
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[index].classList.add('active');
+                slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            }
+            
+            // 次のスライドへ
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // 前のスライドへ
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // イベントリスナー
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // キーボードイベント
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                }
+            });
+            
+            // 初期スライド表示
+            showSlide(currentSlide);
+        });
+    </script>
+</body>
+</html>

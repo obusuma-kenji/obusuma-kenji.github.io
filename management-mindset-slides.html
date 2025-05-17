@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>経営者のマインドセット - 満足と成長の狭間で</title>
+    <style>
+        /* ベーススタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans&family=Playfair+Display:ital@1&display=swap');
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            color: #333;
+            background-color: #f7f7f7;
+            overflow: hidden;
+        }
+        
+        /* カラーパレット */
+        :root {
+            --primary: #0F3460;
+            --secondary: #1A7BA3;
+            --accent: #F95C59;
+            --accent2: #5AAF60;
+            --accent3: #FFB344;
+            --bg-white: #F7F7F7;
+            --bg-light: #E8E8E8;
+        }
+        
+        /* フォントスタイル */
+        h1, .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        h2, h3, .heading {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+        
+        /* スライドコンテナ */
+        .slide-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* スライドベース */
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            background-color: var(--bg-white);
+            padding: 4% 10%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+        }
+        
+        /* スライドコンテンツレイアウト */
+        .slide-header {
+            margin-bottom: 30px;
+        }
+        
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .slide-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--primary);
+            border-top: 1px solid var(--secondary);
+            padding-top: 10px;
+        }
+        
+        /* タイトルスライド特別スタイル */
+        .title-slide {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .title-slide h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .title-slide h2 {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            font-weight: normal;
+        }
+        
+        .presenter-info {
+            margin-top: 60px;
+            font-size: 1.2em;
+        }
+        
+        /* リスト要素 */
+        ul.check-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        ul.check-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        ul.check-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        /* 創造的不満足のコンセプト図 */
+        .concept-container {
+            width: 100%;
+            height: 350px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .concept-circle {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        
+        .concept-circle:hover {
+            transform: scale(1.05);
+        }
+        
+        .concept-circle.satisfaction {
+            width: 140px;
+            height: 140px;
+            background-color: var(--accent2);
+            top: 50%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .concept-circle.satisfaction:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+        
+        .concept-circle.dissatisfaction {
+            width: 140px;
+            height: 140px;
+            background-color: var(--accent);
+            top: 50%;
+            left: 70%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .concept-circle.dissatisfaction:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+        
+        .concept-circle.creative {
+            width: 180px;
+            height: 180px;
+            background-color: var(--primary);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+        
+        .concept-circle.creative:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+        
+        .concept-arrow {
+            position: absolute;
+            width: 90px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .concept-arrow::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid var(--secondary);
+            border-right: 2px solid var(--secondary);
+            transform: rotate(45deg);
+            right: 0;
+            top: -4px;
+        }
+        
+        /* サイクルの図解 */
+        .cycle-container {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .cycle-step {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .cycle-arrow {
+            position: absolute;
+            width: 60px;
+            height: 2px;
+            background-color: var(--secondary);
+            transform-origin: left center;
+        }
+        
+        .cycle-arrow::after {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-top: 2px solid var(--secondary);
+            border-right: 2px solid var(--secondary);
+            transform: rotate(45deg);
+            right: 0;
+            top: -3px;
+        }
+        
+        /* 経営者プロフィールカード */
+        .profile-container {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .profile-card {
+            flex: 1;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+        
+        .profile-image {
+            width: 100%;
+            height: 120px;
+            background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .profile-content {
+            padding: 15px;
+        }
+        
+        .profile-name {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 1.2em;
+        }
+        
+        .profile-title {
+            color: #666;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        
+        .profile-quote {
+            font-style: italic;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 15px;
+            border-left: 3px solid var(--accent3);
+        }
+        
+        .profile-mindset {
+            margin-top: 10px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        /* インサイトカード */
+        .insight-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .insight-card {
+            flex: 1;
+            min-width: 200px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .insight-title {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 5px;
+        }
+        
+        /* ナビゲーションコントロール */
+        .slide-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background-color: var(--primary);
+        }
+        
+        .slide-counter {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: var(--primary);
+            font-size: 14px;
+            z-index: 100;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 4% 5%;
+            }
+            
+            .title-slide h1 {
+                font-size: 2em;
+            }
+            
+            .title-slide h2 {
+                font-size: 1.2em;
+            }
+            
+            .concept-circle {
+                width: 100px !important;
+                height: 100px !important;
+                font-size: 0.8em;
+            }
+            
+            .profile-container {
+                flex-direction: column;
+            }
+            
+            .insight-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- スライド1: タイトル -->
+        <div class="slide title-slide active" id="slide1">
+            <div class="slide-content">
+                <h1>経営者のマインドセット</h1>
+                <h2>満足と成長の狭間で</h2>
+                <div class="presenter-info">
+                    <p>講師：山田太郎</p>
+                    <p>第4回：経営者支援セミナー</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- スライド2: この回で学ぶこと -->
+        <div class="slide" id="slide2">
+            <div class="slide-header">
+                <h2>この回で学ぶこと</h2>
+            </div>
+            <div class="slide-content">
+                <ul class="check-list">
+                    <li>経営者が「現状に満足できない」理由とその本質</li>
+                    <li>「創造的不満足」がもたらすイノベーションと成長</li>
+                    <li>経営者が求められる満足と不満足のバランス感覚</li>
+                    <li>持続可能な成長マインドセットの構築方法</li>
+                </ul>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">2</div>
+            </div>
+        </div>
+        
+        <!-- スライド3: 「現状に満足できない」が経営者の本質 -->
+        <div class="slide" id="slide3">
+            <div class="slide-header">
+                <h2>「現状に満足できない」が経営者の本質</h2>
+            </div>
+            <div class="slide-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <p style="font-size: 1.3em; font-weight: bold; color: var(--primary);">
+                        「現状に満足していれば悩まないのでは？」
+                    </p>
+                    <p style="font-size: 1.1em;">
+                        この問いから経営者の内面に迫る
+                    </p>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
+                    <div style="flex: 1; min-width: 200px; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary); margin-top: 0;">多くの経営者が共通して持つ特性</h3>
+                        <ul>
+                            <li>現状維持よりも常に改善・成長を志向</li>
+                            <li>「できるはずだ」「もっと良くできる」という思考</li>
+                            <li>可能性を追求する強い意志</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 200px; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary); margin-top: 0;">満足できない理由は？</h3>
+                        <ul>
+                            <li>単なる欲ではなく、使命感や責任から</li>
+                            <li>市場環境の変化への適応の必要性</li>
+                            <li>ステークホルダーからの期待</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">3</div>
+            </div>
+        </div>
+        
+        <!-- スライド4: 成長志向という性質 -->
+        <div class="slide" id="slide4">
+            <div class="slide-header">
+                <h2>成長志向という性質</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2em; margin-bottom: 20px;">
+                    起業し、会社を成長させてきた人の多くは、「現状維持」を良しとしない気質を持っています。
+                </p>
+                
+                <div style="display: flex; justify-content: center; margin: 20px 0;">
+                    <svg width="400" height="200" viewBox="0 0 400 200">
+                        <!-- 思考の流れを表す図 -->
+                        <rect x="10" y="80" width="120" height="40" rx="5" fill="var(--bg-light)" stroke="var(--primary)" stroke-width="2" />
+                        <text x="70" y="105" text-anchor="middle" font-size="14">現状</text>
+                        
+                        <path d="M130,100 L170,100" stroke="var(--primary)" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+                        <polygon id="arrowhead" points="170,100 160,95 160,105" fill="var(--primary)" />
+                        
+                        <rect x="170" y="80" width="120" height="40" rx="5" fill="var(--bg-light)" stroke="var(--primary)" stroke-width="2" />
+                        <text x="230" y="105" text-anchor="middle" font-size="14">「もっと良くなる」</text>
+                        
+                        <path d="M290,100 L330,100" stroke="var(--primary)" stroke-width="2" fill="none" marker-end="url(#arrowhead2)" />
+                        <polygon id="arrowhead2" points="330,100 320,95 320,105" fill="var(--primary)" />
+                        
+                        <rect x="330" y="80" width="60" height="40" rx="5" fill="var(--accent)" stroke="var(--primary)" stroke-width="2" />
+                        <text x="360" y="105" text-anchor="middle" font-size="14" fill="white">行動</text>
+                        
+                        <!-- 上向き矢印と「向上心」 -->
+                        <path d="M230,80 L230,40" stroke="var(--secondary)" stroke-width="2" stroke-dasharray="5,5" fill="none" marker-end="url(#arrowhead3)" />
+                        <polygon id="arrowhead3" points="230,40 225,50 235,50" fill="var(--secondary)" />
+                        <text x="230" y="30" text-anchor="middle" font-size="14" fill="var(--secondary)">向上心</text>
+                        
+                        <!-- 下向き矢印と「可能性への信念」 -->
+                        <path d="M230,120 L230,160" stroke="var(--secondary)" stroke-width="2" stroke-dasharray="5,5" fill="none" marker-end="url(#arrowhead4)" />
+                        <polygon id="arrowhead4" points="230,160 225,150 235,150" fill="var(--secondary)" />
+                        <text x="230" y="180" text-anchor="middle" font-size="14" fill="var(--secondary)">可能性への信念</text>
+                    </svg>
+                </div>
+                
+                <div style="background-color: var(--bg-light); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <p style="margin: 0; font-size: 1.1em;">
+                        <strong>「もっと良くできるはずだ」</strong> - この思考が経営者を駆り立てる原動力
+                    </p>
+                </div>
+                
+                <div class="quote" style="text-align: center; margin-top: 20px; color: #666;">
+                    「停滞は後退の始まりである」
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">4</div>
+            </div>
+        </div>
+        
+        <!-- スライド5: 市場環境の現実 -->
+        <div class="slide" id="slide5">
+            <div class="slide-header">
+                <h2>市場環境の現実</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2em; margin-bottom: 20px;">
+                    ビジネスの世界では、「現状維持」は実質的には「後退」を意味することが多い現実
+                </p>
+                
+                <div style="display: flex; justify-content: center; margin: 30px 0;">
+                    <svg width="500" height="240" viewBox="0 0 500 240">
+                        <!-- 座標軸 -->
+                        <line x1="70" y1="200" x2="450" y2="200" stroke="#333" stroke-width="2" />
+                        <line x1="70" y1="200" x2="70" y2="50" stroke="#333" stroke-width="2" />
+                        
+                        <!-- 軸ラベル -->
+                        <text x="260" y="230" text-anchor="middle">時間</text>
+                        <text x="40" y="125" text-anchor="middle" transform="rotate(-90, 40, 125)">成長・進化</text>
+                        
+                        <!-- 市場の成長線 -->
+                        <path d="M70,180 Q160,160 250,130 T450,50" stroke="var(--accent)" stroke-width="3" fill="none" />
+                        <text x="450" y="40" text-anchor="end" fill="var(--accent)">市場・競合の進化</text>
+                        
+                        <!-- 自社の線（現状維持） -->
+                        <path d="M70,180 L450,180" stroke="var(--primary)" stroke-width="3" fill="none" stroke-dasharray="5,5" />
+                        <text x="450" y="170" text-anchor="end" fill="var(--primary)">「現状維持」の自社</text>
+                        
+                        <!-- ギャップを示す両方向矢印 -->
+                        <line x1="350" y1="90" x2="350" y2="180" stroke="#333" stroke-width="1" stroke-dasharray="3,3" />
+                        <path d="M345,100 L350,90 L355,100" stroke="#333" stroke-width="1" fill="none" />
+                        <path d="M345,170 L350,180 L355,170" stroke="#333" stroke-width="1" fill="none" />
+                        <text x="370" y="140" text-anchor="start">ギャップ</text>
+                    </svg>
+                </div>
+                
+                <div class="quote" style="text-align: center; margin-top: 20px; padding: 10px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    「自転車と同じです。漕ぎ続けないと倒れる。立ち止まることはできません」<br>
+                    <span style="font-size: 0.9em; color: #666; display: block; margin-top: 5px;">- ある製造業の経営者</span>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">5</div>
+            </div>
+        </div>
+        
+        <!-- スライド6: 責任の重み -->
+        <div class="slide" id="slide6">
+            <div class="slide-header">
+                <h2>責任の重み</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2em; margin-bottom: 20px;">
+                    従業員や株主、取引先への責任が、「これで十分」と考えることを許さない
+                </p>
+                
+                <div style="display: flex; justify-content: center; margin: 20px 0;">
+                    <svg width="400" height="250" viewBox="0 0 400 250">
+                        <!-- 経営者と責任の図 -->
+                        <circle cx="200" cy="80" r="40" fill="var(--primary)" />
+                        <text x="200" y="85" text-anchor="middle" fill="white" font-weight="bold">経営者</text>
+                        
+                        <!-- 責任の線 -->
+                        <line x1="170" y1="110" x2="120" y2="160" stroke="var(--secondary)" stroke-width="2" />
+                        <line x1="190" y1="120" x2="190" y2="180" stroke="var(--secondary)" stroke-width="2" />
+                        <line x1="230" y1="110" x2="280" y2="160" stroke="var(--secondary)" stroke-width="2" />
+                        
+                        <!-- 責任の対象 -->
+                        <circle cx="100" cy="180" r="30" fill="var(--bg-light)" stroke="var(--secondary)" stroke-width="2" />
+                        <text x="100" y="185" text-anchor="middle">従業員</text>
+                        
+                        <circle cx="190" cy="200" r="30" fill="var(--bg-light)" stroke="var(--secondary)" stroke-width="2" />
+                        <text x="190" y="205" text-anchor="middle">株主</text>
+                        
+                        <circle cx="300" cy="180" r="30" fill="var(--bg-light)" stroke="var(--secondary)" stroke-width="2" />
+                        <text x="300" y="185" text-anchor="middle">取引先</text>
+                        
+                        <!-- 重みのメタファー -->
+                        <rect x="160" y="30" width="80" height="10" fill="#aaa" rx="2" />
+                        <rect x="180" y="10" width="40" height="20" fill="#aaa" rx="2" />
+                    </svg>
+                </div>
+                
+                <div style="background-color: #fff; padding: 15px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <p style="margin: 0; font-size: 1.1em;">
+                        多くの経営者は「これで十分と思った瞬間に危機が訪れる」という<strong>経験則</strong>を持っています。
+                    </p>
+                </div>
+                
+                <ul style="margin-top: 20px;">
+                    <li>常に結果を出し続ける必要がある</li>
+                    <li>多くの人の生活がかかっている</li>
+                    <li>先を見据えた判断が求められる</li>
+                </ul>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">6</div>
+            </div>
+        </div>
+        
+        <!-- スライド7: 創造的不満足の概念 (重点スライド) -->
+        <div class="slide" id="slide7">
+            <div class="slide-header">
+                <h2>創造的不満足の概念</h2>
+            </div>
+            <div class="slide-content">
+                <div class="concept-container">
+                    <div class="concept-circle satisfaction">
+                        <span>満足</span>
+                        <span style="font-size: 0.8em; margin-top: 5px;">安定・安心</span>
+                    </div>
+                    
+                    <div class="concept-circle dissatisfaction">
+                        <span>不満足</span>
+                        <span style="font-size: 0.8em; margin-top: 5px;">焦り・不安</span>
+                    </div>
+                    
+                    <div class="concept-circle creative">
+                        <span>創造的不満足</span>
+                        <span style="font-size: 0.8em; margin-top: 10px; line-height: 1.3;">
+                            現状を認めつつも<br>
+                            より良い未来を<br>
+                            創造する姿勢
+                        </span>
+                    </div>
+                    
+                    <!-- 矢印の接続 -->
+                    <div class="concept-arrow" style="top: 30%; left: 30%; width: 60px; transform: rotate(-30deg);"></div>
+                    <div class="concept-arrow" style="top: 30%; right: 30%; width: 60px; transform: rotate(210deg);"></div>
+                </div>
+                
+                <div style="margin-top: 30px; display: flex; gap: 20px;">
+                    <div style="flex: 1; background-color: var(--bg-light); padding: 15px; border-radius: 8px;">
+                        <h3 style="color: var(--primary); margin-top: 0; text-align: center;">イノベーションの源泉</h3>
+                        <p style="margin: 0;">
+                            適度な不満足感は、創造性とイノベーションを生み出します。完全に満足してしまうと、改善や革新への意欲が失われることも。
+                        </p>
+                    </div>
+                    
+                    <div style="flex: 1; background-color: var(--bg-light); padding: 15px; border-radius: 8px;">
+                        <h3 style="color: var(--primary); margin-top: 0; text-align: center;">健全な推進力</h3>
+                        <p style="margin: 0;">
+                            「今のやり方でも上手くいっているが、もっと良い方法があるはずだ」—この思考が新たな価値を生み出します。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">7</div>
+            </div>
+        </div>
+        
+        <!-- スライド8: 達成感と新たな目標のサイクル -->
+        <div class="slide" id="slide8">
+            <div class="slide-header">
+                <h2>達成感と新たな目標のサイクル</h2>
+            </div>
+            <div class="slide-content">
+                <div class="cycle-container">
+                    <!-- サイクルの各ステップ -->
+                    <div class="cycle-step" style="top: 20px; left: 140px; background-color: var(--primary);">
+                        <div>達成</div>
+                    </div>
+                    
+                    <div class="cycle-step" style="top: 20px; right: 140px; background-color: var(--accent2);">
+                        <div>満足</div>
+                    </div>
+                    
+                    <div class="cycle-step" style="bottom: 20px; right: 140px; background-color: var(--secondary);">
+                        <div>新たな<br>目標設定</div>
+                    </div>
+                    
+                    <div class="cycle-step" style="bottom: 20px; left: 140px; background-color: var(--accent);">
+                        <div>挑戦</div>
+                    </div>
+                    
+                    <!-- サイクルを繋ぐ矢印 -->
+                    <div class="cycle-arrow" style="top: 50px; left: 230px; width: 80px;"></div>
+                    <div class="cycle-arrow" style="top: 80px; right: 200px; width: 80px; transform: rotate(90deg);"></div>
+                    <div class="cycle-arrow" style="bottom: 50px; right: 230px; width: 80px; transform: rotate(180deg);"></div>
+                    <div class="cycle-arrow" style="bottom: 80px; left: 200px; width: 80px; transform: rotate(270deg);"></div>
+                </div>
+                
+                <div style="margin-top: 30px; display: flex; gap: 20px;">
+                    <div style="flex: 1; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary); margin-top: 0; text-align: center;">健全なサイクル</h3>
+                        <p style="margin: 0;">
+                            目標達成の喜びを感じつつも、次の山を見据える—このリズムが重要です。達成感を味わい、エネルギーを蓄えてから次の挑戦へ。
+                        </p>
+                    </div>
+                    
+                    <div style="flex: 1; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--accent); margin-top: 0; text-align: center;">不健全なサイクル</h3>
+                        <p style="margin: 0;">
+                            「達成→一時的な満足→すぐに次の目標→常に不満足」となると、経営者自身も組織も疲弊してしまいます。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">8</div>
+            </div>
+        </div>
+        
+        <!-- スライド9: 外部からの期待と内なる声 -->
+        <div class="slide" id="slide9">
+            <div class="slide-header">
+                <h2>外部からの期待と内なる声</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2em; margin-bottom: 20px;">
+                    経営者の不満足感は、外部からの期待と内なる声の両方から生まれます
+                </p>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 20px 0;">
+                    <div style="flex: 1; min-width: 200px; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary); margin-top: 0; border-bottom: 2px solid var(--secondary); padding-bottom: 5px;">
+                            外部からの期待
+                        </h3>
+                        <ul>
+                            <li><strong>顧客:</strong> より良い製品・サービス</li>
+                            <li><strong>従業員:</strong> 成長と安定の両立</li>
+                            <li><strong>株主:</strong> 継続的な利益拡大</li>
+                            <li><strong>家族:</strong> 安定と時間の確保</li>
+                            <li><strong>社会:</strong> 企業としての責任</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 200px; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary); margin-top: 0; border-bottom: 2px solid var(--secondary); padding-bottom: 5px;">
+                            内なる声
+                        </h3>
+                        <ul>
+                            <li><strong>成功への渇望:</strong> 自己証明の欲求</li>
+                            <li><strong>完璧主義:</strong> 高い基準の設定</li>
+                            <li><strong>比較思考:</strong> 他者と比べる習慣</li>
+                            <li><strong>過去の成功:</strong> 前回を超える期待</li>
+                            <li><strong>使命感:</strong> 社会的インパクトへの願望</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px; font-style: italic; color: #666;">
+                    「成長し続けること」「前年比を上回ること」が成功の証と見なされる社会的価値観も、<br>
+                    経営者の満足感に大きな影響を与えています。
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">9</div>
+            </div>
+        </div>
+        
+        <!-- スライド10: バランスの取れた経営者マインドの形成 -->
+        <div class="slide" id="slide10">
+            <div class="slide-header">
+                <h2>バランスの取れた経営者マインドの形成</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2em; margin-bottom: 20px; text-align: center;">
+                    理想的な経営者マインドセットとは、現状への感謝と前進への意欲のバランスを取ること
+                </p>
+                
+                <div class="insight-container">
+                    <div class="insight-card">
+                        <h3 class="insight-title">「何を持って満足とするか」の再定義</h3>
+                        <p>
+                            数字だけでなく、顧客の笑顔、従業員の成長、社会への貢献など、<strong>多様な価値基準</strong>を持つことで、満足感のチャンネルを増やすことができます。
+                        </p>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <h3 class="insight-title">過程を大切にする視点</h3>
+                        <p>
+                            結果だけでなく、そこに至る過程に価値を見出す視点も重要です。「うまくいかなかったが、多くを学んだ」という経験にも価値があります。
+                        </p>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <h3 class="insight-title">自己との対話の時間</h3>
+                        <p>
+                            忙しい日々の中で、立ち止まって自己と対話する時間を持つことも大切です。「本当に大切なものは何か」「何のために経営しているのか」—この問いに向き合うことで、より本質的な満足感を得ることができます。
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px; font-style: italic; color: #666;">
+                    バランスの取れたマインドセットは、経営者自身の持続可能性と会社の健全な成長を両立させます
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">10</div>
+            </div>
+        </div>
+        
+        <!-- スライド11: 著名経営者のマインドセット事例 -->
+        <div class="slide" id="slide11">
+            <div class="slide-header">
+                <h2>著名経営者のマインドセット事例</h2>
+            </div>
+            <div class="slide-content">
+                <div class="profile-container">
+                    <div class="profile-card">
+                        <div class="profile-image">
+                            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                            </svg>
+                            <div>松下幸之助</div>
+                        </div>
+                        <div class="profile-content">
+                            <h3 class="profile-name">松下幸之助</h3>
+                            <p class="profile-title">パナソニック創業者</p>
+                            <div class="profile-quote">
+                                「経営は常に改善を続ける余地がある。完璧な経営などありえない。」
+                            </div>
+                            <p class="profile-mindset">
+                                <span style="font-size: 0.9em;">マインドセット特徴：</span><br>
+                                「水道哲学」- 物を安くして大衆に届ける志。常に顧客視点での価値創造を追求し続けた。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-card">
+                        <div class="profile-image">
+                            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                            </svg>
+                            <div>稲盛和夫</div>
+                        </div>
+                        <div class="profile-content">
+                            <h3 class="profile-name">稲盛和夫</h3>
+                            <p class="profile-title">京セラ創業者</p>
+                            <div class="profile-quote">
+                                「今日の仕事に満足してはいけない。明日はさらに良くできるはずだ。」
+                            </div>
+                            <p class="profile-mindset">
+                                <span style="font-size: 0.9em;">マインドセット特徴：</span><br>
+                                「動機善なりや、私心なかりしか」- 常に動機の純粋さを問い、利他の精神で経営に向き合った。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-container" style="margin-top: 20px;">
+                    <div class="profile-card">
+                        <div class="profile-image">
+                            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                            </svg>
+                            <div>渋沢栄一</div>
+                        </div>
+                        <div class="profile-content">
+                            <h3 class="profile-name">渋沢栄一</h3>
+                            <p class="profile-title">日本近代資本主義の父</p>
+                            <div class="profile-quote">
+                                「道徳経済合一説」- 道徳と経済活動は一体であるべきという思想。
+                            </div>
+                            <p class="profile-mindset">
+                                <span style="font-size: 0.9em;">マインドセット特徴：</span><br>
+                                利益追求だけでなく社会全体の発展を目指す「公益」の精神。長期的な視点での価値創造を重視。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-card">
+                        <div class="profile-image">
+                            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                            </svg>
+                            <div>スティーブ・ジョブズ</div>
+                        </div>
+                        <div class="profile-content">
+                            <h3 class="profile-name">スティーブ・ジョブズ</h3>
+                            <p class="profile-title">アップル共同創業者</p>
+                            <div class="profile-quote">
+                                「ハングリーであれ。愚か者であれ。」
+                            </div>
+                            <p class="profile-mindset">
+                                <span style="font-size: 0.9em;">マインドセット特徴：</span><br>
+                                完璧主義と創造的破壊の両立。既存の成功に満足せず、自らの製品でさえ陳腐化させる姿勢。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">11</div>
+            </div>
+        </div>
+        
+        <!-- スライド12: まとめと質問 -->
+        <div class="slide" id="slide12">
+            <div class="slide-header">
+                <h2>まとめ</h2>
+                <h3>持続可能な経営者マインドセット</h3>
+            </div>
+            <div class="slide-content">
+                <div style="display: flex; flex-direction: column; gap: 25px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background-color: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">1</div>
+                        <p style="font-size: 1.1em; margin: 0;">現状に満足できない性質は、<strong>欠点ではなく経営者の重要な資質</strong>である</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background-color: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">2</div>
+                        <p style="font-size: 1.1em; margin: 0;"><strong>創造的不満足</strong>は破壊的ではなく、建設的で前向きな原動力になりうる</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background-color: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">3</div>
+                        <p style="font-size: 1.1em; margin: 0;">達成→満足→新たな目標→挑戦の<strong>健全なサイクル</strong>を意識する</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background-color: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">4</div>
+                        <p style="font-size: 1.1em; margin: 0;"><strong>多様な価値基準</strong>を持ち、本質的な満足感を見出す視点が重要</p>
+                    </div>
+                </div>
+                
+                <div style="background-color: var(--bg-light); padding: 20px; border-radius: 8px; margin-top: 30px;">
+                    <h3 style="color: var(--primary); margin-top: 0; text-align: center;">ディスカッションポイント</h3>
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 0;">
+                        あなたはどのような時に経営の満足感を感じますか？<br>
+                        それをどのように次の成長につなげていますか？
+                    </p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">12</div>
+            </div>
+        </div>
+        
+        <!-- ナビゲーションコントロール -->
+        <div class="slide-nav">
+            <button class="nav-btn" id="prev-btn">◀</button>
+            <button class="nav-btn" id="next-btn">▶</button>
+        </div>
+        
+        <!-- スライドカウンター -->
+        <div class="slide-counter" id="slide-counter">1 / 12</div>
+    </div>
+    
+    <script>
+        // スライド制御スクリプト
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+            
+            // スライドを表示する関数
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[index].classList.add('active');
+                slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            }
+            
+            // 次のスライドへ
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // 前のスライドへ
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // イベントリスナー
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // キーボードイベント
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                }
+            });
+            
+            // 初期スライド表示
+            showSlide(currentSlide);
+        });
+    </script>
+</body>
+</html>

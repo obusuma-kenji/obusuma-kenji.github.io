@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI時代の経営支援 - デジタルパートナーとの伴走</title>
+    <style>
+        /* ベーススタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans&family=Playfair+Display:ital@1&display=swap');
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            color: #333;
+            background-color: #f7f7f7;
+            overflow: hidden;
+        }
+        
+        /* カラーパレット */
+        :root {
+            --primary: #0F3460;
+            --secondary: #1A7BA3;
+            --accent: #F95C59;
+            --accent2: #5AAF60;
+            --accent3: #FFB344;
+            --accent4: #7B68EE;
+            --accent5: #20B2AA;
+            --bg-white: #F7F7F7;
+            --bg-light: #E8E8E8;
+            --tech-blue: #3498db;
+            --tech-purple: #9b59b6;
+            --tech-green: #2ecc71;
+            --tech-gray: #34495e;
+        }
+        
+        /* フォントスタイル */
+        h1, .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        h2, h3, .heading {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+        
+        /* スライドコンテナ */
+        .slide-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* スライドベース */
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            background-color: var(--bg-white);
+            padding: 4% 10%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+        }
+        
+        /* スライドコンテンツレイアウト */
+        .slide-header {
+            margin-bottom: 30px;
+        }
+        
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .slide-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--primary);
+            border-top: 1px solid var(--secondary);
+            padding-top: 10px;
+        }
+        
+        /* タイトルスライド特別スタイル */
+        .title-slide {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .title-slide::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="30" cy="10" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="50" cy="10" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="70" cy="10" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="90" cy="10" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="10" cy="30" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="30" cy="30" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="50" cy="30" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="70" cy="30" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="90" cy="30" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="10" cy="50" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="30" cy="50" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="70" cy="50" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="90" cy="50" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="10" cy="70" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="30" cy="70" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="50" cy="70" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="70" cy="70" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="90" cy="70" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="10" cy="90" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="30" cy="90" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="50" cy="90" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="70" cy="90" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="90" cy="90" r="2" fill="rgba(255,255,255,0.2)"/></svg>');
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .title-slide h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .title-slide h2 {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            font-weight: normal;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .presenter-info {
+            margin-top: 60px;
+            font-size: 1.2em;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* リスト要素 */
+        ul.check-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        ul.check-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        ul.check-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        /* AI変化の特徴カード */
+        .feature-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            flex: 1;
+            min-width: 200px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--tech-blue);
+        }
+        
+        .feature-card:nth-child(2)::before {
+            background-color: var(--tech-purple);
+        }
+        
+        .feature-card:nth-child(3)::before {
+            background-color: var(--tech-green);
+        }
+        
+        .feature-card:nth-child(4)::before {
+            background-color: var(--accent);
+        }
+        
+        .feature-title {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+        
+        /* AIエージェントスタイル */
+        .ai-agent {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .ai-agent-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .ai-agent-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .ai-agent-title {
+            color: var(--primary);
+            margin: 0;
+            font-size: 1.2em;
+        }
+        
+        .ai-agent-functions {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        .ai-agent-functions li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+        }
+        
+        .ai-agent-functions li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+        
+        /* 事例カードスタイル */
+        .case-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .case-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .case-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            background-color: var(--tech-blue);
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+        }
+        
+        .case-title {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+        }
+        
+        .case-title-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            background-color: var(--tech-blue);
+        }
+        
+        .case-quote {
+            font-style: italic;
+            padding: 15px;
+            background-color: var(--bg-light);
+            border-radius: 5px;
+            margin-top: 15px;
+            position: relative;
+        }
+        
+        .case-quote::before {
+            content: """;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-size: 24px;
+            color: #ccc;
+        }
+        
+        /* 比較テーブル */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .comparison-table ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .comparison-table li {
+            margin-bottom: 5px;
+        }
+        
+        /* AIスキルカード */
+        .skill-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .skill-card {
+            flex: 1;
+            min-width: 200px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-card-header {
+            background-color: var(--tech-blue);
+            color: white;
+            padding: 10px;
+            margin: -15px -15px 15px -15px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .skill-card:nth-child(2) .skill-card-header {
+            background-color: var(--tech-purple);
+        }
+        
+        .skill-card:nth-child(3) .skill-card-header {
+            background-color: var(--tech-green);
+        }
+        
+        .skill-card ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .skill-card li {
+            margin-bottom: 8px;
+        }
+        
+        /* マトリクススタイル */
+        .matrix-container {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            margin: 20px auto;
+        }
+        
+        .matrix-quadrant {
+            position: absolute;
+            width: 45%;
+            height: 45%;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .matrix-quadrant h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            color: var(--primary);
+        }
+        
+        .matrix-quadrant ul {
+            margin: 0;
+            padding-left: 20px;
+            flex-grow: 1;
+        }
+        
+        .matrix-quadrant li {
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        
+        .matrix-top-left {
+            top: 0;
+            left: 0;
+            background-color: rgba(52, 152, 219, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+        
+        .matrix-top-right {
+            top: 0;
+            right: 0;
+            background-color: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+        
+        .matrix-bottom-left {
+            bottom: 0;
+            left: 0;
+            background-color: rgba(155, 89, 182, 0.1);
+            border: 1px solid rgba(155, 89, 182, 0.3);
+        }
+        
+        .matrix-bottom-right {
+            bottom: 0;
+            right: 0;
+            background-color: rgba(52, 73, 94, 0.1);
+            border: 1px solid rgba(52, 73, 94, 0.3);
+        }
+        
+        .matrix-labels {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .matrix-x-label {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .matrix-y-label {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            transform: translateX(-50%) rotate(-90deg);
+            transform-origin: center;
+            white-space: nowrap;
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .matrix-arrows {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .matrix-x-arrow {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            right: 5%;
+            height: 2px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        .matrix-x-arrow::before, .matrix-x-arrow::after {
+            content: "";
+            position: absolute;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        
+        .matrix-x-arrow::before {
+            left: 0;
+            border-width: 5px 8px 5px 0;
+            border-color: transparent rgba(0, 0, 0, 0.2) transparent transparent;
+        }
+        
+        .matrix-x-arrow::after {
+            right: 0;
+            border-width: 5px 0 5px 8px;
+            border-color: transparent transparent transparent rgba(0, 0, 0, 0.2);
+        }
+        
+        .matrix-y-arrow {
+            position: absolute;
+            left: 50%;
+            top: 5%;
+            bottom: 5%;
+            width: 2px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        .matrix-y-arrow::before, .matrix-y-arrow::after {
+            content: "";
+            position: absolute;
+            left: -4px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        
+        .matrix-y-arrow::before {
+            top: 0;
+            border-width: 0 5px 8px 5px;
+            border-color: transparent transparent rgba(0, 0, 0, 0.2) transparent;
+        }
+        
+        .matrix-y-arrow::after {
+            bottom: 0;
+            border-width: 8px 5px 0 5px;
+            border-color: rgba(0, 0, 0, 0.2) transparent transparent transparent;
+        }
+        
+        .matrix-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            font-size: 0.8em;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 未来型カード */
+        .future-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .future-card {
+            flex: 1;
+            min-width: 200px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .future-card h3 {
+            color: var(--tech-blue);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        
+        .future-card:nth-child(2) h3 {
+            color: var(--tech-purple);
+        }
+        
+        .future-card:nth-child(3) h3 {
+            color: var(--tech-green);
+        }
+        
+        /* ナビゲーションコントロール */
+        .slide-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background-color: var(--primary);
+        }
+        
+        .slide-counter {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: var(--primary);
+            font-size: 14px;
+            z-index: 100;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 4% 5%;
+            }
+            
+            .title-slide h1 {
+                font-size: 2em;
+            }
+            
+            .title-slide h2 {
+                font-size: 1.2em;
+            }
+            
+            .feature-cards, .skill-cards, .future-cards {
+                flex-direction: column;
+            }
+            
+            .matrix-container {
+                height: 600px;
+            }
+            
+            .matrix-quadrant {
+                width: 90%;
+                height: 22%;
+                position: relative;
+                margin-bottom: 10px;
+                left: auto;
+                right: auto;
+                top: auto;
+                bottom: auto;
+            }
+            
+            .matrix-labels, .matrix-arrows, .matrix-center {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- スライド1: タイトル -->
+        <div class="slide title-slide active" id="slide1">
+            <div class="slide-content">
+                <h1>AI時代の経営支援</h1>
+                <h2>デジタルパートナーとの伴走</h2>
+                <div class="presenter-info">
+                    <p>講師：山田太郎</p>
+                    <p>第5回：経営者支援セミナー</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- スライド2: この回で学ぶこと -->
+        <div class="slide" id="slide2">
+            <div class="slide-header">
+                <h2>この回で学ぶこと</h2>
+            </div>
+            <div class="slide-content">
+                <ul class="check-list">
+                    <li>AIが経営支援に与える変革と可能性</li>
+                    <li>AIエージェントの種類と活用シーン</li>
+                    <li>実際の企業におけるAI活用事例</li>
+                    <li>人間とAIの最適な役割分担</li>
+                    <li>AI時代に経営者に求められる新たなスキル</li>
+                </ul>
+                <div style="text-align: center; margin-top: 30px; color: #666; font-style: italic;">
+                    多くの読者から「AIと経営支援の関係についても知りたい」というリクエストをいただき、<br>
+                    特別編としてAI時代の経営支援について考察します。
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">2</div>
+            </div>
+        </div>
+        
+        <!-- スライド3: 変わりゆく経営環境とAIの台頭 -->
+        <div class="slide" id="slide3">
+            <div class="slide-header">
+                <h2>変わりゆく経営環境とAIの台頭</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2em; margin-bottom: 20px;">
+                    ビジネス環境は加速度的に変化しています。その変化の中心にあるのが、AI（人工知能）技術の急速な発展です。
+                </p>
+                
+                <div style="display: flex; justify-content: center; margin: 20px 0;">
+                    <svg width="600" height="250" viewBox="0 0 600 250">
+                        <!-- タイムライン背景 -->
+                        <line x1="70" y1="125" x2="530" y2="125" stroke="#ddd" stroke-width="4" />
+                        
+                        <!-- 時代区分 -->
+                        <line x1="70" y1="150" x2="70" y2="100" stroke="#aaa" stroke-width="2" />
+                        <text x="70" y="170" text-anchor="middle" font-size="12">2010年頃</text>
+                        <text x="70" y="90" text-anchor="middle" font-size="12">データ分析</text>
+                        
+                        <line x1="200" y1="150" x2="200" y2="100" stroke="#aaa" stroke-width="2" />
+                        <text x="200" y="170" text-anchor="middle" font-size="12">2017年頃</text>
+                        <text x="200" y="90" text-anchor="middle" font-size="12">機械学習</text>
+                        
+                        <line x1="330" y1="150" x2="330" y2="100" stroke="#aaa" stroke-width="2" />
+                        <text x="330" y="170" text-anchor="middle" font-size="12">2020年頃</text>
+                        <text x="330" y="90" text-anchor="middle" font-size="12">深層学習</text>
+                        
+                        <line x1="460" y1="150" x2="460" y2="100" stroke="#aaa" stroke-width="2" />
+                        <text x="460" y="170" text-anchor="middle" font-size="12">2023年頃</text>
+                        <text x="460" y="90" text-anchor="middle" font-size="12">生成AI</text>
+                        
+                        <line x1="530" y1="150" x2="530" y2="100" stroke="#aaa" stroke-width="2" />
+                        <text x="530" y="170" text-anchor="middle" font-size="12">現在</text>
+                        
+                        <!-- イノベーションカーブ -->
+                        <path d="M70,125 Q150,120 200,110 T330,80 T460,40 T530,20" stroke="var(--tech-blue)" stroke-width="3" fill="none" />
+                        
+                        <!-- 主な出来事 -->
+                        <circle cx="140" cy="115" r="5" fill="var(--tech-purple)" />
+                        <line x1="140" y1="115" x2="140" y2="190" stroke="var(--tech-purple)" stroke-width="1" stroke-dasharray="3,2" />
+                        <text x="140" y="205" text-anchor="middle" font-size="11">ビッグデータ活用</text>
+                        
+                        <circle cx="250" cy="100" r="5" fill="var(--tech-purple)" />
+                        <line x1="250" y1="100" x2="250" y2="190" stroke="var(--tech-purple)" stroke-width="1" stroke-dasharray="3,2" />
+                        <text x="250" y="205" text-anchor="middle" font-size="11">AI予測システム</text>
+                        
+                        <circle cx="380" cy="60" r="5" fill="var(--tech-purple)" />
+                        <line x1="380" y1="60" x2="380" y2="190" stroke="var(--tech-purple)" stroke-width="1" stroke-dasharray="3,2" />
+                        <text x="380" y="205" text-anchor="middle" font-size="11">画像認識・自然言語処理</text>
+                        
+                        <circle cx="460" cy="40" r="5" fill="var(--tech-purple)" />
+                        <line x1="460" y1="40" x2="460" y2="190" stroke="var(--tech-purple)" stroke-width="1" stroke-dasharray="3,2" />
+                        <text x="460" y="205" text-anchor="middle" font-size="11">ChatGPT登場</text>
+                        
+                        <circle cx="500" cy="30" r="5" fill="var(--tech-purple)" />
+                        <line x1="500" y1="30" x2="500" y2="190" stroke="var(--tech-purple)" stroke-width="1" stroke-dasharray="3,2" />
+                        <text x="500" y="205" text-anchor="middle" font-size="11">AIエージェント</text>
+                        
+                        <!-- 経営インパクト -->
+                        <text x="300" y="235" text-anchor="middle" font-style="italic" font-size="12">経営環境への影響度</text>
+                    </svg>
+                </div>
+                
+                <div style="text-align: center; margin-top: 10px;">
+                    <p>
+                        <strong>ChatGPT</strong>をはじめとする生成AIの登場は、私たちの働き方や思考プロセスに革命をもたらしています。<br>
+                        経営支援の世界も例外ではなく、AIが新たな「伴走者」として台頭してきています。
+                    </p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">3</div>
+            </div>
+        </div>
+        
+        <!-- スライド4: AIによる変化の特徴 -->
+        <div class="slide" id="slide4">
+            <div class="slide-header">
+                <h2>AIによる変化の特徴</h2>
+            </div>
+            <div class="slide-content">
+                <div class="feature-cards">
+                    <div class="feature-card">
+                        <h3 class="feature-title">24時間365日の稼働</h3>
+                        <p>
+                            人間の支援者には体力と時間の限界がありますが、AIは常に待機し、いつでも活用できます。
+                        </p>
+                        <p>
+                            深夜のアイデア出しや早朝の情報収集など、経営者の「思いついた時」に即座に対応可能です。
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3 class="feature-title">膨大な情報処理能力</h3>
+                        <p>
+                            人間が読みきれない量の情報を瞬時に分析し、パターンを発見します。
+                        </p>
+                        <p>
+                            業界データ、市場動向、競合情報などを常に最新状態で把握し、意思決定を支援します。
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3 class="feature-title">バイアスの違い</h3>
+                        <p>
+                            人間特有の認知バイアス（確証バイアス、利用可能性ヒューリスティックなど）とは異なる視点を提供します。
+                        </p>
+                        <p>
+                            多角的な分析と「想定外」の選択肢を提示することで、思考の幅を広げます。
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3 class="feature-title">コストの革命的低減</h3>
+                        <p>
+                            高度な分析が従来よりはるかに低コストで可能になり、中小企業でも活用できるようになりました。
+                        </p>
+                        <p>
+                            大企業だけでなく、あらゆる規模の企業が質の高い経営支援を受けられる時代が到来しています。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">4</div>
+            </div>
+        </div>
+        
+        <!-- スライド5: 経営支援の新たな形：AIエージェントの可能性 -->
+        <div class="slide" id="slide5">
+            <div class="slide-header">
+                <h2>経営支援の新たな形：AIエージェントの可能性</h2>
+            </div>
+            <div class="slide-content">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <p style="font-size: 1.2em;">
+                        「AIエージェント」とは、特定のタスクや意思決定を支援するために設計されたAIシステムです。<br>
+                        経営支援の文脈では、様々な専門エージェントが登場しています。
+                    </p>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                    <div style="flex: 1; min-width: 200px; display: flex;">
+                        <div class="ai-agent">
+                            <div class="ai-agent-header">
+                                <div class="ai-agent-icon" style="background-color: var(--tech-blue);">S</div>
+                                <h3 class="ai-agent-title">戦略立案支援AIエージェント</h3>
+                            </div>
+                            <ul class="ai-agent-functions">
+                                <li>市場データを分析し、競合情報を常時モニタリング</li>
+                                <li>業界トレンドを検出し、機会とリスクを提示</li>
+                                <li>シナリオ分析による意思決定支援</li>
+                                <li>経営会議の議題設定と事前資料の自動生成</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 200px; display: flex;">
+                        <div class="ai-agent">
+                            <div class="ai-agent-header">
+                                <div class="ai-agent-icon" style="background-color: var(--tech-purple);">F</div>
+                                <h3 class="ai-agent-title">財務分析AIエージェント</h3>
+                            </div>
+                            <ul class="ai-agent-functions">
+                                <li>リアルタイムの財務指標モニタリング</li>
+                                <li>キャッシュフロー予測と資金繰り最適化</li>
+                                <li>投資判断のシミュレーションと評価</li>
+                                <li>異常値の早期検出とアラート機能</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
+                    <div style="flex: 1; min-width: 200px; display: flex;">
+                        <div class="ai-agent">
+                            <div class="ai-agent-header">
+                                <div class="ai-agent-icon" style="background-color: var(--tech-green);">H</div>
+                                <h3 class="ai-agent-title">人材・組織支援AIエージェント</h3>
+                            </div>
+                            <ul class="ai-agent-functions">
+                                <li>組織内コミュニケーションの分析と改善提案</li>
+                                <li>人材のスキルマッピングと最適配置提案</li>
+                                <li>従業員満足度の継続的モニタリング</li>
+                                <li>採用支援と人材育成プログラムの最適化</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 200px; display: flex;">
+                        <div style="background-color: var(--bg-light); padding: 20px; border-radius: 8px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; font-style: italic;">
+                            「週次の経営会議の前に、AIエージェントがデータを分析し、議論すべき重要な論点を提示してくれます。以前は準備に丸一日かかっていたことが、今は数分で完了します」<br><br>
+                            <span style="font-size: 0.9em; color: #666;">― ある中小企業の経営者</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">5</div>
+            </div>
+        </div>
+        
+        <!-- スライド6: AIを活用した経営支援の具体例：ケース1 -->
+        <div class="slide" id="slide6">
+            <div class="slide-header">
+                <h2>AIを活用した経営支援の具体例</h2>
+            </div>
+            <div class="slide-content">
+                <div class="case-container">
+                    <div class="case-card">
+                        <h3 class="case-title">
+                            <div class="case-title-icon">1</div>
+                            経営ダッシュボード型AI
+                        </h3>
+                        <p style="margin-bottom: 10px;">
+                            <strong>中堅IT企業の事例：</strong>複数のデータソース（販売システム、顧客管理、財務、SNS分析など）を統合し、自社の健全性を示す重要指標をリアルタイムで可視化。異常値を検出すると、原因分析と対応案を自動提示する。
+                        </p>
+                        
+                        <div style="display: flex; justify-content: center; margin: 15px 0;">
+                            <svg width="500" height="180" viewBox="0 0 500 180">
+                                <!-- ダッシュボードのイメージ図 -->
+                                <rect x="10" y="10" width="480" height="160" rx="5" fill="#f8f9fa" stroke="#ddd" />
+                                
+                                <!-- ヘッダー部分 -->
+                                <rect x="10" y="10" width="480" height="30" rx="5" fill="#e9ecef" stroke="#ddd" />
+                                <text x="30" y="30" font-size="14" font-weight="bold">経営ダッシュボード</text>
+                                <text x="450" y="30" font-size="12" text-anchor="end">更新: リアルタイム</text>
+                                
+                                <!-- グラフエリア -->
+                                <rect x="20" y="50" width="150" height="110" rx="3" fill="white" stroke="#ddd" />
+                                <text x="30" y="70" font-size="12" font-weight="bold">売上トレンド</text>
+                                <polyline points="30,130 50,120 70,125 90,110 110,105 130,90 150,95" fill="none" stroke="var(--tech-blue)" stroke-width="2" />
+                                
+                                <!-- メトリクスエリア -->
+                                <rect x="180" y="50" width="150" height="50" rx="3" fill="white" stroke="#ddd" />
+                                <text x="190" y="70" font-size="12" font-weight="bold">顧客満足度</text>
+                                <text x="190" y="90" font-size="18" fill="var(--tech-green)">92%</text>
+                                <text x="230" y="90" font-size="12" fill="var(--tech-green)">↑2%</text>
+                                
+                                <rect x="180" y="110" width="150" height="50" rx="3" fill="white" stroke="#ddd" />
+                                <text x="190" y="130" font-size="12" font-weight="bold">従業員エンゲージメント</text>
+                                <text x="190" y="150" font-size="18" fill="var(--accent)">83%</text>
+                                <text x="230" y="150" font-size="12" fill="var(--accent)">↓3%</text>
+                                
+                                <!-- アラートエリア -->
+                                <rect x="340" y="50" width="140" height="110" rx="3" fill="white" stroke="#ddd" />
+                                <text x="350" y="70" font-size="12" font-weight="bold">AIアラート</text>
+                                <rect x="350" y="80" width="120" height="25" rx="3" fill="#fff3cd" stroke="#ffeeba" />
+                                <text x="360" y="97" font-size="10">Project X の進捗が15%遅延</text>
+                                <rect x="350" y="115" width="120" height="25" rx="3" fill="#d1e7dd" stroke="#c3e6cb" />
+                                <text x="360" y="132" font-size="10">新製品の市場反応が良好</text>
+                            </svg>
+                        </div>
+                        
+                        <div class="case-quote">
+                            以前は月次で各部門から報告を受け、問題があってもすでに手遅れということがありました。今は問題の兆候を早期に察知できるようになり、先手を打てるようになりました。
+                            <div style="text-align: right; font-size: 0.9em; margin-top: 5px; font-style: normal;">― 経営者コメント</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">6</div>
+            </div>
+        </div>
+        
+        <!-- スライド7: AIを活用した経営支援の具体例：ケース2 -->
+        <div class="slide" id="slide7">
+            <div class="slide-header">
+                <h2>AIを活用した経営支援の具体例</h2>
+            </div>
+            <div class="slide-content">
+                <div class="case-container">
+                    <div class="case-card">
+                        <h3 class="case-title">
+                            <div class="case-title-icon" style="background-color: var(--tech-purple);">2</div>
+                            意思決定支援型AI
+                        </h3>
+                        <p style="margin-bottom: 10px;">
+                            <strong>製造業の事例：</strong>新製品の開発判断において、市場調査データ、競合情報、自社の生産能力、財務状況などを総合的に分析。投資対効果の複数シナリオを提示し、意思決定をサポート。
+                        </p>
+                        
+                        <div style="display: flex; justify-content: center; margin: 15px 0;">
+                            <svg width="500" height="180" viewBox="0 0 500 180">
+                                <!-- 意思決定支援のイメージ図 -->
+                                <rect x="10" y="10" width="480" height="160" rx="5" fill="#f8f9fa" stroke="#ddd" />
+                                
+                                <!-- 中央の決断ポイント -->
+                                <circle cx="250" cy="90" r="30" fill="var(--primary)" />
+                                <text x="250" y="95" text-anchor="middle" fill="white" font-size="12">新製品開発</text>
+                                
+                                <!-- シナリオ分岐 -->
+                                <line x1="280" y1="90" x2="380" y2="50" stroke="var(--tech-green)" stroke-width="2" />
+                                <rect x="380" y="30" width="100" height="40" rx="5" fill="white" stroke="var(--tech-green)" />
+                                <text x="430" y="50" text-anchor="middle" font-size="10" font-weight="bold">シナリオA</text>
+                                <text x="430" y="65" text-anchor="middle" font-size="9">ROI: 25%</text>
+                                
+                                <line x1="280" y1="90" x2="380" y2="90" stroke="var(--accent3)" stroke-width="2" />
+                                <rect x="380" y="70" width="100" height="40" rx="5" fill="white" stroke="var(--accent3)" />
+                                <text x="430" y="90" text-anchor="middle" font-size="10" font-weight="bold">シナリオB</text>
+                                <text x="430" y="105" text-anchor="middle" font-size="9">ROI: 18%</text>
+                                
+                                <line x1="280" y1="90" x2="380" y2="130" stroke="var(--accent)" stroke-width="2" />
+                                <rect x="380" y="110" width="100" height="40" rx="5" fill="white" stroke="var(--accent)" />
+                                <text x="430" y="130" text-anchor="middle" font-size="10" font-weight="bold">シナリオC</text>
+                                <text x="430" y="145" text-anchor="middle" font-size="9">ROI: 10%</text>
+                                
+                                <!-- 入力データ -->
+                                <line x1="220" y1="90" x2="120" y2="50" stroke="#aaa" stroke-width="1" stroke-dasharray="3,2" />
+                                <rect x="20" y="30" width="100" height="40" rx="5" fill="white" stroke="#aaa" />
+                                <text x="70" y="50" text-anchor="middle" font-size="10">市場調査データ</text>
+                                <text x="70" y="65" text-anchor="middle" font-size="9">1,200サンプル</text>
+                                
+                                <line x1="220" y1="90" x2="120" y2="90" stroke="#aaa" stroke-width="1" stroke-dasharray="3,2" />
+                                <rect x="20" y="70" width="100" height="40" rx="5" fill="white" stroke="#aaa" />
+                                <text x="70" y="90" text-anchor="middle" font-size="10">競合製品分析</text>
+                                <text x="70" y="105" text-anchor="middle" font-size="9">8社の比較</text>
+                                
+                                <line x1="220" y1="90" x2="120" y2="130" stroke="#aaa" stroke-width="1" stroke-dasharray="3,2" />
+                                <rect x="20" y="110" width="100" height="40" rx="5" fill="white" stroke="#aaa" />
+                                <text x="70" y="130" text-anchor="middle" font-size="10">自社リソース</text>
+                                <text x="70" y="145" text-anchor="middle" font-size="9">生産能力・財務</text>
+                            </svg>
+                        </div>
+                        
+                        <div class="case-quote">
+                            感覚と経験だけでは見えなかったリスク要因を指摘してくれました。結果的に製品スペックの一部を見直し、より市場ニーズに合った製品を開発できました。
+                            <div style="text-align: right; font-size: 0.9em; margin-top: 5px; font-style: normal;">― 経営者コメント</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">7</div>
+            </div>
+        </div>
+        
+        <!-- スライド8: AIを活用した経営支援の具体例：ケース3 -->
+        <div class="slide" id="slide8">
+            <div class="slide-header">
+                <h2>AIを活用した経営支援の具体例</h2>
+            </div>
+            <div class="slide-content">
+                <div class="case-container">
+                    <div class="case-card">
+                        <h3 class="case-title">
+                            <div class="case-title-icon" style="background-color: var(--tech-green);">3</div>
+                            ナレッジマネジメント型AI
+                        </h3>
+                        <p style="margin-bottom: 10px;">
+                            <strong>専門サービス業の事例：</strong>社内の過去の案件データ、議事録、メールなどから知識を抽出・整理し、新しい案件に活用できる形で提供。会社の「集合知」を効率的に活用。
+                        </p>
+                        
+                        <div style="display: flex; justify-content: center; margin: 15px 0;">
+                            <svg width="500" height="180" viewBox="0 0 500 180">
+                                <!-- ナレッジマネジメントのイメージ図 -->
+                                <rect x="10" y="10" width="480" height="160" rx="5" fill="#f8f9fa" stroke="#ddd" />
+                                
+                                <!-- 中央のAIエンジン -->
+                                <rect x="200" y="60" width="100" height="60" rx="5" fill="var(--tech-green)" />
+                                <text x="250" y="90" text-anchor="middle" fill="white" font-size="14" font-weight="bold">AI</text>
+                                <text x="250" y="105" text-anchor="middle" fill="white" font-size="10">ナレッジエンジン</text>
+                                
+                                <!-- 入力データ -->
+                                <rect x="40" y="40" width="100" height="30" rx="5" fill="white" stroke="#ddd" />
+                                <text x="90" y="60" text-anchor="middle" font-size="10">過去の案件データ</text>
+                                <line x1="140" y1="55" x2="200" y2="75" stroke="#aaa" stroke-width="1" stroke-dasharray="3,2" />
+                                
+                                <rect x="40" y="80" width="100" height="30" rx="5" fill="white" stroke="#ddd" />
+                                <text x="90" y="100" text-anchor="middle" font-size="10">議事録・報告書</text>
+                                <line x1="140" y1="95" x2="200" y2="90" stroke="#aaa" stroke-width="1" stroke-dasharray="3,2" />
+                                
+                                <rect x="40" y="120" width="100" height="30" rx="5" fill="white" stroke="#ddd" />
+                                <text x="90" y="140" text-anchor="middle" font-size="10">メール・チャット</text>
+                                <line x1="140" y1="135" x2="200" y2="105" stroke="#aaa" stroke-width="1" stroke-dasharray="3,2" />
+                                
+                                <!-- 出力結果 -->
+                                <rect x="360" y="40" width="120" height="30" rx="5" fill="white" stroke="var(--tech-blue)" />
+                                <text x="420" y="60" text-anchor="middle" font-size="10">類似案件の事例集</text>
+                                <line x1="300" y1="75" x2="360" y2="55" stroke="var(--tech-blue)" stroke-width="1" />
+                                
+                                <rect x="360" y="80" width="120" height="30" rx="5" fill="white" stroke="var(--tech-blue)" />
+                                <text x="420" y="100" text-anchor="middle" font-size="10">成功・失敗パターン</text>
+                                <line x1="300" y1="90" x2="360" y2="95" stroke="var(--tech-blue)" stroke-width="1" />
+                                
+                                <rect x="360" y="120" width="120" height="30" rx="5" fill="white" stroke="var(--tech-blue)" />
+                                <text x="420" y="140" text-anchor="middle" font-size="10">専門家マッチング</text>
+                                <line x1="300" y1="105" x2="360" y2="135" stroke="var(--tech-blue)" stroke-width="1" />
+                            </svg>
+                        </div>
+                        
+                        <div class="case-quote">
+                            10年分の知見が瞬時に引き出せるようになり、若手社員の成長スピードが格段に上がりました。私自身も忘れていた過去の事例をAIが思い出させてくれることがあります。
+                            <div style="text-align: right; font-size: 0.9em; margin-top: 5px; font-style: normal;">― 経営者コメント</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">8</div>
+            </div>
+        </div>
+        
+        <!-- スライド9: 人間の支援者とAIの使い分け -->
+        <div class="slide" id="slide9">
+            <div class="slide-header">
+                <h2>人間の支援者とAIの使い分け</h2>
+            </div>
+            <div class="slide-content">
+                <p style="text-align: center; margin-bottom: 20px; font-size: 1.1em;">
+                    AIの台頭は、人間の経営支援者の価値を否定するものではありません。<br>
+                    むしろ、両者の長所を組み合わせることで、より効果的な支援が可能になります。
+                </p>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th style="width: 50%;">AIの得意分野</th>
+                        <th style="width: 50%;">人間の支援者の得意分野</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li>データ分析と客観的事実の提示</li>
+                                <li>膨大な情報からのパターン検出</li>
+                                <li>シナリオシミュレーションと予測</li>
+                                <li>反復的なタスクの自動化</li>
+                                <li>24時間365日の対応</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>共感と情緒的サポート</li>
+                                <li>経験に基づく直感と判断</li>
+                                <li>創造的な問題解決</li>
+                                <li>倫理的・社会的文脈の理解</li>
+                                <li>人間関係の調整と信頼構築</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                
+                <div style="text-align: center; margin-top: 20px; padding: 15px; background-color: var(--bg-light); border-radius: 8px;">
+                    <p class="quote" style="margin: 0;">
+                        「私たちの役割は変わりました。以前はデータ収集と分析に多くの時間を費やしていましたが、今はその部分をAIに任せ、より本質的な対話と創造的な問題解決に集中できるようになりました」
+                    </p>
+                    <p style="margin: 10px 0 0 0; font-size: 0.9em; color: #666;">
+                        ― ある経営コンサルタント
+                    </p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">9</div>
+            </div>
+        </div>
+        
+        <!-- スライド10: AI時代の経営者に求められるスキル -->
+        <div class="slide" id="slide10">
+            <div class="slide-header">
+                <h2>AI時代の経営者に求められるスキル</h2>
+            </div>
+            <div class="slide-content">
+                <p style="text-align: center; margin-bottom: 20px; font-size: 1.1em;">
+                    AIという新たな伴走者を効果的に活用するためには、経営者自身にも新たなスキルが求められます
+                </p>
+                
+                <div class="skill-cards">
+                    <div class="skill-card">
+                        <div class="skill-card-header">AIリテラシー</div>
+                        <ul>
+                            <li>AIの基本的な仕組みと限界の理解</li>
+                            <li>適切な問いかけ（プロンプト）の設計能力</li>
+                            <li>AIの出力を批判的に評価する力</li>
+                            <li>AIツールの選定と評価基準</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="skill-card-header">デジタルデータ活用力</div>
+                        <ul>
+                            <li>自社の重要データの特定と整備</li>
+                            <li>データの品質管理と保護</li>
+                            <li>データから価値を創出する思考法</li>
+                            <li>データに基づく意思決定プロセス</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="skill-card-header">複合的思考力</div>
+                        <ul>
+                            <li>AIによる分析と人間の直感を統合する力</li>
+                            <li>数値化できない価値の重要性理解</li>
+                            <li>倫理的判断と人間中心の価値観の保持</li>
+                            <li>テクノロジーと人間性のバランス感覚</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px; font-style: italic; color: #666;">
+                    「AIは強力なツールですが、それを使う私たち自身の判断力がより重要になっています。AIの示す選択肢から最終的に選ぶのは人間であり、その判断の基準となる価値観を明確にすることが経営者の役割です」
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">10</div>
+            </div>
+        </div>
+        
+        <!-- スライド11: AIとの伴走型経営支援の未来（重点スライド） -->
+        <div class="slide" id="slide11">
+            <div class="slide-header">
+                <h2>AI×人間 ハイブリッド支援モデル</h2>
+            </div>
+            <div class="slide-content">
+                <div class="matrix-container">
+                    <div class="matrix-labels">
+                        <div class="matrix-x-label">データ処理 → 創造的思考</div>
+                        <div class="matrix-y-label">反復的タスク → 複合判断</div>
+                    </div>
+                    
+                    <div class="matrix-arrows">
+                        <div class="matrix-x-arrow"></div>
+                        <div class="matrix-y-arrow"></div>
+                    </div>
+                    
+                    <div class="matrix-quadrant matrix-top-left">
+                        <h3>AI主導</h3>
+                        <ul>
+                            <li>データ分析</li>
+                            <li>パターン検出</li>
+                            <li>モニタリング</li>
+                            <li>レポート自動生成</li>
+                            <li>異常検知</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="matrix-quadrant matrix-top-right">
+                        <h3>AI支援・人間判断</h3>
+                        <ul>
+                            <li>シナリオ分析</li>
+                            <li>リスク予測</li>
+                            <li>オプション生成</li>
+                            <li>市場トレンド分析</li>
+                            <li>意思決定支援</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="matrix-quadrant matrix-bottom-left">
+                        <h3>分担協業</h3>
+                        <ul>
+                            <li>定型報告自動化</li>
+                            <li>データ可視化</li>
+                            <li>初期診断</li>
+                            <li>議事録作成</li>
+                            <li>情報分類・整理</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="matrix-quadrant matrix-bottom-right">
+                        <h3>人間主導・AI補完</h3>
+                        <ul>
+                            <li>戦略立案</li>
+                            <li>価値判断</li>
+                            <li>創造的解決策</li>
+                            <li>関係構築</li>
+                            <li>変革マネジメント</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="matrix-center">相互進化</div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 10px; font-size: 0.9em; color: #666;">
+                    AIと人間の支援者が組み合わさった新たな伴走型支援の形が生まれつつあります
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">11</div>
+            </div>
+        </div>
+        
+        <!-- スライド12: AIとの伴走型経営支援の未来 -->
+        <div class="slide" id="slide12">
+            <div class="slide-header">
+                <h2>AIとの伴走型経営支援の未来</h2>
+            </div>
+            <div class="slide-content">
+                <div class="future-cards">
+                    <div class="future-card">
+                        <h3>ハイブリッド支援モデル</h3>
+                        <ul>
+                            <li>AIによる継続的なデータ監視と初期分析</li>
+                            <li>人間の支援者による解釈と戦略的対話</li>
+                            <li>両者が補完し合う循環的な支援プロセス</li>
+                            <li>各領域の専門AIと人間専門家のチーム編成</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="future-card">
+                        <h3>経営者の内省を促すAI</h3>
+                        <ul>
+                            <li>経営判断の一貫性や偏りを可視化</li>
+                            <li>経営者自身の思考パターンの気づきを提供</li>
+                            <li>新たな視点での問いかけによる視野拡大</li>
+                            <li>個人の価値観と決断の整合性確認</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="future-card">
+                        <h3>組織全体のAI活用を促進</h3>
+                        <ul>
+                            <li>経営層だけでなく現場までAIツールの活用促進</li>
+                            <li>全社的なデジタルトランスフォーメーションの加速</li>
+                            <li>意思決定の分散と権限委譲の促進</li>
+                            <li>組織の学習能力と適応力の向上</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: center; margin-top: 20px;">
+                    <svg width="500" height="80" viewBox="0 0 500 80">
+                        <!-- 進化の矢印 -->
+                        <defs>
+                            <linearGradient id="arrow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="var(--primary)" />
+                                <stop offset="100%" stop-color="var(--tech-blue)" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <path d="M50,40 L450,40" stroke="url(#arrow-gradient)" stroke-width="3" fill="none" />
+                        <polygon points="450,40 435,30 435,50" fill="var(--tech-blue)" />
+                        
+                        <circle cx="100" cy="40" r="10" fill="var(--primary)" />
+                        <text x="100" y="65" text-anchor="middle" font-size="12">現在</text>
+                        
+                        <circle cx="250" cy="40" r="10" fill="var(--secondary)" />
+                        <text x="250" y="65" text-anchor="middle" font-size="12">近未来</text>
+                        
+                        <circle cx="400" cy="40" r="10" fill="var(--tech-blue)" />
+                        <text x="400" y="65" text-anchor="middle" font-size="12">長期的未来</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">12</div>
+            </div>
+        </div>
+        
+        <!-- スライド13: おわりに -->
+        <div class="slide" id="slide13">
+            <div class="slide-header">
+                <h2>変わるものと変わらないもの</h2>
+            </div>
+            <div class="slide-content">
+                <div style="display: flex; flex-wrap: wrap; gap: 30px; margin-bottom: 30px;">
+                    <div style="flex: 1; min-width: 200px; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--tech-blue); margin-top: 0; text-align: center;">変わるもの</h3>
+                        <ul>
+                            <li>情報収集と分析の<strong>スピードと範囲</strong></li>
+                            <li>意思決定における<strong>データの粒度と精度</strong></li>
+                            <li>経営支援者の<strong>役割と専門性</strong></li>
+                            <li>組織全体の<strong>学習プロセス</strong></li>
+                            <li>経営課題への<strong>対応速度</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 200px; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary); margin-top: 0; text-align: center;">変わらないもの</h3>
+                        <ul>
+                            <li>経営者自身が持つ<strong>判断と責任</strong></li>
+                            <li>企業の<strong>目的や存在意義</strong></li>
+                            <li>人と人との<strong>信頼関係の価値</strong></li>
+                            <li>「なぜ経営するのか」という<strong>本質的な問い</strong></li>
+                            <li><strong>倫理的判断</strong>の重要性</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px; font-style: italic;">
+                    <p>
+                        AIという新たなパートナーを迎えた今、経営者はより多角的な視点と深い洞察を得ることが可能になりました。<br>
+                        しかし同時に、「なぜ経営するのか」「何のために決断するのか」という本質的な問いは、<br>
+                        依然として経営者自身が向き合うべきものです。
+                    </p>
+                    <p style="margin-top: 15px;">
+                        <strong>テクノロジーは進化しても、経営の核心にあるのは人間の判断と責任であり続けるでしょう。</strong>
+                    </p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">13</div>
+            </div>
+        </div>
+        
+        <!-- スライド14: 質問と対話 -->
+        <div class="slide" id="slide14">
+            <div class="slide-header">
+                <h2>質問と対話</h2>
+                <h3>ディスカッションポイント</h3>
+            </div>
+            <div class="slide-content">
+                <div style="background-color: var(--bg-light); padding: 30px; border-radius: 8px; margin-bottom: 30px;">
+                    <p style="font-size: 1.3em; text-align: center; margin: 0;">
+                        あなたの経営や業務において、<br>
+                        AIツールをどのように活用していますか？<br>
+                        また、今後どのような活用を検討していますか？
+                    </p>
+                </div>
+                <div style="display: flex; justify-content: center; margin-top: 20px;">
+                    <svg width="200" height="120" viewBox="0 0 200 120">
+                        <!-- 対話を象徴する吹き出しアイコン -->
+                        <path d="M50,10 L150,10 C165,10 180,25 180,40 L180,70 C180,85 165,100 150,100 L120,100 L100,120 L80,100 L50,100 C35,100 20,85 20,70 L20,40 C20,25 35,10 50,10 Z" fill="none" stroke="var(--secondary)" stroke-width="3" />
+                        <circle cx="70" cy="55" r="8" fill="var(--secondary)" />
+                        <circle cx="100" cy="55" r="8" fill="var(--secondary)" />
+                        <circle cx="130" cy="55" r="8" fill="var(--secondary)" />
+                    </svg>
+                </div>
+                <p style="text-align: center; margin-top: 20px;">
+                    経営者支援セミナー全5回にわたる連載を<br>
+                    お読みいただき、ありがとうございました
+                </p>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">14</div>
+            </div>
+        </div>
+        
+        <!-- スライド15: 連載まとめと謝辞 -->
+        <div class="slide" id="slide15">
+            <div class="slide-header">
+                <h2>連載まとめと謝辞</h2>
+            </div>
+            <div class="slide-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <p style="font-size: 1.2em;">
+                        5回にわたる連載を通じて、経営者の悩みと支援の本質について考察してきました
+                    </p>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px;">
+                    <div style="flex: 1; min-width: 200px; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary); margin-top: 0; font-size: 1em; text-align: center;">第1回</h3>
+                        <p style="text-align: center; margin: 0; font-size: 0.9em;">
+                            <strong>経営者の悩みの本質</strong><br>
+                            その根源を探る
+                        </p>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 200px; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary); margin-top: 0; font-size: 1em; text-align: center;">第2回</h3>
+                        <p style="text-align: center; margin: 0; font-size: 0.9em;">
+                            <strong>経営者が直面する7つの課題</strong><br>
+                            成功への道のりを阻む壁を理解する
+                        </p>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 200px; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary); margin-top: 0; font-size: 1em; text-align: center;">第3回</h3>
+                        <p style="text-align: center; margin: 0; font-size: 0.9em;">
+                            <strong>経営支援の真価</strong><br>
+                            本当に必要な支援とは何か
+                        </p>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 200px; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary); margin-top: 0; font-size: 1em; text-align: center;">第4回</h3>
+                        <p style="text-align: center; margin: 0; font-size: 0.9em;">
+                            <strong>経営者のマインドセット</strong><br>
+                            満足と成長の狭間で
+                        </p>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 200px; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 2px solid var(--tech-blue);">
+                        <h3 style="color: var(--tech-blue); margin-top: 0; font-size: 1em; text-align: center;">第5回</h3>
+                        <p style="text-align: center; margin: 0; font-size: 0.9em;">
+                            <strong>AI時代の経営支援</strong><br>
+                            デジタルパートナーとの伴走
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px; font-style: italic; color: #666;">
+                    <p>
+                        テクノロジーの進化を取り入れながらも、変わらぬ経営の真髄を見失わないこと—<br>
+                        それが持続可能な経営の鍵かもしれません。
+                    </p>
+                    <p style="margin-top: 15px;">
+                        読者の皆様の経営に、少しでも新たな視点をご提供できていれば幸いです。
+                    </p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">15</div>
+            </div>
+        </div>
+        
+        <!-- スライド16: お問い合わせと次のステップ -->
+        <div class="slide" id="slide16">
+            <div class="slide-header">
+                <h2>お問い合わせと次のステップ</h2>
+            </div>
+            <div class="slide-content">
+                <div style="display: flex; flex-wrap: wrap; gap: 30px;">
+                    <div style="flex: 1; min-width: 200px; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary); margin-top: 0; text-align: center;">個別相談</h3>
+                        <p style="text-align: center;">
+                            経営課題や支援ニーズについて<br>
+                            個別にご相談いただけます
+                        </p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <div style="display: inline-block; padding: 10px 20px; background-color: var(--secondary); color: white; border-radius: 5px; font-weight: bold;">
+                                お問い合わせはこちら
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 200px; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary); margin-top: 0; text-align: center;">経営者交流会</h3>
+                        <p style="text-align: center;">
+                            同じ悩みを持つ経営者同士で<br>
+                            学び合う交流会を開催しています
+                        </p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <div style="display: inline-block; padding: 10px 20px; background-color: var(--primary); color: white; border-radius: 5px; font-weight: bold;">
+                                詳細はこちら
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background-color: var(--bg-light); padding: 20px; border-radius: 8px; margin-top: 30px; text-align: center;">
+                    <h3 style="color: var(--tech-blue); margin-top: 0;">【特別企画】AIと経営の融合セミナー</h3>
+                    <p>
+                        AIを活用した経営支援の実践方法を学ぶ特別セミナーを開催します。<br>
+                        実際のAIツールを体験しながら、自社への導入方法を習得できます。
+                    </p>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <div style="display: inline-block; padding: 10px 20px; background-color: var(--tech-blue); color: white; border-radius: 5px; font-weight: bold;">
+                            セミナー詳細・申込み
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #666;">
+                    経営者支援プログラムに関するお問い合わせ：support@example.com
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">16</div>
+            </div>
+        </div>
+        
+        <!-- ナビゲーションコントロール -->
+        <div class="slide-nav">
+            <button class="nav-btn" id="prev-btn">◀</button>
+            <button class="nav-btn" id="next-btn">▶</button>
+        </div>
+        
+        <!-- スライドカウンター -->
+        <div class="slide-counter" id="slide-counter">1 / 16</div>
+    </div>
+    
+    <script>
+        // スライド制御スクリプト
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+            
+            // スライドを表示する関数
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[index].classList.add('active');
+                slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            }
+            
+            // 次のスライドへ
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // 前のスライドへ
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // イベントリスナー
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // キーボードイベント
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                }
+            });
+            
+            // 初期スライド表示
+            showSlide(currentSlide);
+        });
+    </script>
+</body>
+</html>

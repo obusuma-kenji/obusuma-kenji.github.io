@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>経営者が直面する7つの課題</title>
+    <style>
+        /* ベーススタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans&family=Playfair+Display:ital@1&display=swap');
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            color: #333;
+            background-color: #f7f7f7;
+            overflow: hidden;
+        }
+        
+        /* カラーパレット */
+        :root {
+            --primary: #0F3460;
+            --secondary: #1A7BA3;
+            --accent: #F95C59;
+            --bg-white: #F7F7F7;
+            --bg-light: #E8E8E8;
+            /* 課題カラー */
+            --challenge1: #E63946; /* 事業戦略 - 赤系 */
+            --challenge2: #2A9D8F; /* 財務・資金 - 緑系 */
+            --challenge3: #457B9D; /* 人材・組織 - 青系 */
+            --challenge4: #8338EC; /* 事業承継 - 紫系 */
+            --challenge5: #F77F00; /* 個人的課題 - 橙系 */
+            --challenge6: #A27B5C; /* 外部環境 - 茶系 */
+            --challenge7: #6C757D; /* 日常業務 - 灰系 */
+        }
+        
+        /* フォントスタイル */
+        h1, .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        h2, h3, .heading {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+        
+        /* スライドコンテナ */
+        .slide-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* スライドベース */
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            background-color: var(--bg-white);
+            padding: 4% 10%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+        }
+        
+        /* スライドコンテンツレイアウト */
+        .slide-header {
+            margin-bottom: 30px;
+        }
+        
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .slide-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--primary);
+            border-top: 1px solid var(--secondary);
+            padding-top: 10px;
+        }
+        
+        /* タイトルスライド特別スタイル */
+        .title-slide {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .title-slide h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .title-slide h2 {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            font-weight: normal;
+        }
+        
+        .presenter-info {
+            margin-top: 60px;
+            font-size: 1.2em;
+        }
+        
+        /* リスト要素 */
+        ul.check-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        ul.check-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        ul.check-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        /* 課題マップスタイル */
+        .challenges-map {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            margin: 0 auto;
+        }
+        
+        .challenge-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .challenge-item {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .challenge-line {
+            position: absolute;
+            background-color: #ccc;
+            z-index: 1;
+        }
+        
+        /* 課題スライド共通スタイル */
+        .challenge-slide-header {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .challenge-slide-header::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 8px;
+            border-radius: 4px;
+        }
+        
+        .challenge-slide-content {
+            background-color: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .challenge-example-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+        
+        .challenge-example-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .challenge-example-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .challenge-quote {
+            background-color: #fff;
+            padding: 15px;
+            border-left: 4px solid;
+            margin-top: 20px;
+            font-style: italic;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* 相関図スタイル */
+        .correlation-diagram {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        /* ヒートマップスタイル */
+        .heatmap-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+        
+        .heatmap {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .heatmap th {
+            padding: 10px;
+            text-align: left;
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .heatmap td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        .heatmap-high {
+            background-color: #f8d7da;
+        }
+        
+        .heatmap-medium {
+            background-color: #fff3cd;
+        }
+        
+        .heatmap-low {
+            background-color: #d1e7dd;
+        }
+        
+        /* フレームワークスタイル */
+        .framework-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        
+        .framework-step {
+            width: 22%;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+        
+        .framework-step::after {
+            content: "→";
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: var(--secondary);
+        }
+        
+        .framework-step:last-child::after {
+            display: none;
+        }
+        
+        .framework-step-number {
+            width: 30px;
+            height: 30px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+        }
+        
+        .framework-step-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        /* ナビゲーションコントロール */
+        .slide-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background-color: var(--primary);
+        }
+        
+        .slide-counter {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: var(--primary);
+            font-size: 14px;
+            z-index: 100;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 4% 5%;
+            }
+            
+            .title-slide h1 {
+                font-size: 2em;
+            }
+            
+            .title-slide h2 {
+                font-size: 1.2em;
+            }
+            
+            .challenge-item {
+                width: 80px;
+                height: 80px;
+                font-size: 12px;
+            }
+            
+            .challenge-center {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .framework-steps {
+                flex-direction: column;
+            }
+            
+            .framework-step {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            
+            .framework-step::after {
+                content: "↓";
+                right: 50%;
+                bottom: -25px;
+                top: auto;
+                transform: translateX(50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- スライド1: タイトル -->
+        <div class="slide title-slide active" id="slide1">
+            <div class="slide-content">
+                <h1>経営者が直面する7つの課題</h1>
+                <h2>成功への道のりを阻む壁を理解する</h2>
+                <div class="presenter-info">
+                    <p>講師：山田太郎</p>
+                    <p>第2回：経営者支援セミナー</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- スライド2: この回で学ぶこと -->
+        <div class="slide" id="slide2">
+            <div class="slide-header">
+                <h2>この回で学ぶこと</h2>
+            </div>
+            <div class="slide-content">
+                <ul class="check-list">
+                    <li>経営者が共通して直面する7つの課題領域を理解する</li>
+                    <li>各課題の本質と具体的な事例を学ぶ</li>
+                    <li>課題間の相互関連性と対応の優先順位を把握する</li>
+                    <li>課題に効果的に向き合うためのフレームワークを習得する</li>
+                </ul>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">2</div>
+            </div>
+        </div>
+        
+        <!-- スライド3: 7つの課題マップ -->
+        <div class="slide" id="slide3">
+            <div class="slide-header">
+                <h2>7つの課題マップ</h2>
+            </div>
+            <div class="slide-content">
+                <div class="challenges-map">
+                    <div class="challenge-center">経営者</div>
+                    
+                    <!-- 課題1: 事業戦略 -->
+                    <div class="challenge-item" style="top: 50px; left: 50%; transform: translateX(-50%); background-color: var(--challenge1);">
+                        事業戦略<br>方向性
+                    </div>
+                    <div class="challenge-line" style="top: 100px; left: 50%; width: 2px; height: 60px; transform: translateX(-50%);"></div>
+                    
+                    <!-- 課題2: 財務・資金 -->
+                    <div class="challenge-item" style="top: 150px; left: calc(50% + 150px); background-color: var(--challenge2);">
+                        財務<br>資金
+                    </div>
+                    <div class="challenge-line" style="top: 180px; left: calc(50% + 60px); width: 90px; height: 2px;"></div>
+                    
+                    <!-- 課題3: 人材・組織 -->
+                    <div class="challenge-item" style="top: 250px; left: calc(50% + 100px); background-color: var(--challenge3);">
+                        人材<br>組織
+                    </div>
+                    <div class="challenge-line" style="top: 230px; left: calc(50% + 40px); width: 70px; height: 2px; transform: rotate(30deg);"></div>
+                    
+                    <!-- 課題4: 事業承継 -->
+                    <div class="challenge-item" style="top: 300px; left: 50%; transform: translateX(-50%); background-color: var(--challenge4);">
+                        事業承継
+                    </div>
+                    <div class="challenge-line" style="top: 240px; left: 50%; width: 2px; height: 60px; transform: translateX(-50%);"></div>
+                    
+                    <!-- 課題5: 個人的課題 -->
+                    <div class="challenge-item" style="top: 250px; left: calc(50% - 100px); background-color: var(--challenge5);">
+                        個人的<br>課題
+                    </div>
+                    <div class="challenge-line" style="top: 230px; left: calc(50% - 40px); width: 70px; height: 2px; transform: rotate(-30deg);"></div>
+                    
+                    <!-- 課題6: 外部環境 -->
+                    <div class="challenge-item" style="top: 150px; left: calc(50% - 150px); background-color: var(--challenge6);">
+                        外部環境
+                    </div>
+                    <div class="challenge-line" style="top: 180px; left: calc(50% - 60px); width: 90px; height: 2px; transform: rotate(180deg);"></div>
+                    
+                    <!-- 課題7: 日常業務 -->
+                    <div class="challenge-item" style="top: 120px; left: calc(50% - 80px); background-color: var(--challenge7);">
+                        日常業務
+                    </div>
+                    <div class="challenge-line" style="top: 160px; left: calc(50% - 20px); width: 50px; height: 2px; transform: rotate(-45deg);"></div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">3</div>
+            </div>
+        </div>
+        
+        <!-- スライド4: 課題1 - 事業戦略・方向性 -->
+        <div class="slide" id="slide4">
+            <div class="slide-header challenge-slide-header" style="border-left: 5px solid var(--challenge1);">
+                <h2>課題1: 事業戦略・方向性</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2em; margin-bottom: 15px;">
+                    市場環境の急速な変化の中で、進むべき道を見極める難しさ
+                </p>
+                
+                <div class="challenge-slide-content">
+                    <ul class="challenge-example-list">
+                        <li>変化適応 vs 一貫性維持</li>
+                        <li>事業拡大 vs 収益性向上</li>
+                        <li>新規事業 vs 既存強化</li>
+                        <li>デジタル化対応の優先度</li>
+                    </ul>
+                </div>
+                
+                <div class="challenge-quote" style="border-color: var(--challenge1);">
+                    「1年前の計画が今では全く通用しない。変化のスピードについていくだけで精一杯です」<br>
+                    - 製造業経営者の声
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">4</div>
+            </div>
+        </div>
+        
+        <!-- スライド5: 課題2 - 財務・資金 -->
+        <div class="slide" id="slide5">
+            <div class="slide-header challenge-slide-header" style="border-left: 5px solid var(--challenge2);">
+                <h2>課題2: 財務・資金</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2em; margin-bottom: 15px;">
+                    安定したキャッシュフローの確保と成長投資のバランス
+                </p>
+                
+                <div class="challenge-slide-content">
+                    <ul class="challenge-example-list">
+                        <li>運転資金の安定確保</li>
+                        <li>設備投資と返済計画</li>
+                        <li>金融機関との関係構築</li>
+                        <li>利益確保と税務戦略</li>
+                    </ul>
+                </div>
+                
+                <div class="challenge-quote" style="border-color: var(--challenge2);">
+                    「売上は伸びているのに資金繰りが厳しい。成長痛という言葉を身をもって実感しています」<br>
+                    - サービス業経営者の声
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">5</div>
+            </div>
+        </div>
+        
+        <!-- スライド6: 課題3 - 人材・組織 -->
+        <div class="slide" id="slide6">
+            <div class="slide-header challenge-slide-header" style="border-left: 5px solid var(--challenge3);">
+                <h2>課題3: 人材・組織</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2em; margin-bottom: 15px;">
+                    人材の確保・育成と組織力の強化
+                </p>
+                
+                <div class="challenge-slide-content">
+                    <ul class="challenge-example-list">
+                        <li>採用難と人材不足</li>
+                        <li>社員の育成とスキル向上</li>
+                        <li>モチベーション維持と離職防止</li>
+                        <li>組織文化の構築と浸透</li>
+                    </ul>
+                </div>
+                
+                <div class="challenge-quote" style="border-color: var(--challenge3);">
+                    「人を育てても辞められては元も子もない。でも育てないと会社が成長できない。この矛盾にどう向き合うべきか」<br>
+                    - 小売業経営者の声
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">6</div>
+            </div>
+        </div>
+        
+        <!-- スライド7: 課題4 - 事業承継 -->
+        <div class="slide" id="slide7">
+            <div class="slide-header challenge-slide-header" style="border-left: 5px solid var(--challenge4);">
+                <h2>課題4: 事業承継</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2em; margin-bottom: 15px;">
+                    事業の継続性と経営者自身の引退計画
+                </p>
+                
+                <div class="challenge-slide-content">
+                    <ul class="challenge-example-list">
+                        <li>後継者の選定と育成</li>
+                        <li>株式・資産の移転</li>
+                        <li>経営権と支配権の調整</li>
+                        <li>創業家の意向と会社の将来</li>
+                    </ul>
+                </div>
+                
+                <div class="challenge-quote" style="border-color: var(--challenge4);">
+                    「子どもには自分の道を歩んでほしいと思う一方で、この会社を誰に託せばよいのか。答えが見つからない」<br>
+                    - 創業者経営者の声
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">7</div>
+            </div>
+        </div>
+        
+        <!-- スライド8: 課題5 - 個人的課題 -->
+        <div class="slide" id="slide8">
+            <div class="slide-header challenge-slide-header" style="border-left: 5px solid var(--challenge5);">
+                <h2>課題5: 個人的課題</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2em; margin-bottom: 15px;">
+                    経営者自身の健康・メンタル・プライベートとの両立
+                </p>
+                
+                <div class="challenge-slide-content">
+                    <ul class="challenge-example-list">
+                        <li>心身の健康管理</li>
+                        <li>ワークライフバランス</li>
+                        <li>メンタルプレッシャーへの対処</li>
+                        <li>自己成長と学習の時間確保</li>
+                    </ul>
+                </div>
+                
+                <div class="challenge-quote" style="border-color: var(--challenge5);">
+                    「会社のことを考えれば24時間足りない。自分の健康も家族との時間も後回しになってしまう」<br>
+                    - IT企業経営者の声
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">8</div>
+            </div>
+        </div>
+        
+        <!-- スライド9: 課題6 - 外部環境 -->
+        <div class="slide" id="slide9">
+            <div class="slide-header challenge-slide-header" style="border-left: 5px solid var(--challenge6);">
+                <h2>課題6: 外部環境</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2em; margin-bottom: 15px;">
+                    外部要因の変化への適応と対応
+                </p>
+                
+                <div class="challenge-slide-content">
+                    <ul class="challenge-example-list">
+                        <li>規制・法改正への対応</li>
+                        <li>テクノロジー変化への追随</li>
+                        <li>競合動向の把握と対策</li>
+                        <li>社会・環境問題への取り組み</li>
+                    </ul>
+                </div>
+                
+                <div class="challenge-quote" style="border-color: var(--challenge6);">
+                    「カーボンニュートラル、人権問題など、かつては関係ないと思っていた社会課題が今や無視できない経営課題になっている」<br>
+                    - 建設業経営者の声
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">9</div>
+            </div>
+        </div>
+        
+        <!-- スライド10: 課題7 - 日常業務 -->
+        <div class="slide" id="slide10">
+            <div class="slide-header challenge-slide-header" style="border-left: 5px solid var(--challenge7);">
+                <h2>課題7: 日常業務</h2>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2em; margin-bottom: 15px;">
+                    日々の業務遂行と長期的視点のバランス
+                </p>
+                
+                <div class="challenge-slide-content">
+                    <ul class="challenge-example-list">
+                        <li>時間管理と優先順位付け</li>
+                        <li>意思決定の質とスピード</li>
+                        <li>クレーム対応・トラブル処理</li>
+                        <li>現場把握と将来構想の両立</li>
+                    </ul>
+                </div>
+                
+                <div class="challenge-quote" style="border-color: var(--challenge7);">
+                    「毎日の細かい問題対応に追われて、本来考えるべき会社の未来について深く考える時間がない」<br>
+                    - 飲食業経営者の声
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">10</div>
+            </div>
+        </div>
+        
+        <!-- スライド11: 課題の相互関連性 -->
+        <div class="slide" id="slide11">
+            <div class="slide-header">
+                <h2>課題の相互関連性</h2>
+            </div>
+            <div class="slide-content">
+                <div class="correlation-diagram">
+                    <svg width="100%" height="100%" viewBox="0 0 600 400">
+                        <!-- 背景グラデーション -->
+                        <rect x="0" y="0" width="600" height="400" fill="#F5F5F5" rx="10" ry="10" />
+                        
+                        <!-- 中央の経営者アイコン -->
+                        <circle cx="300" cy="200" r="50" fill="#0F3460" />
+                        <text x="300" y="205" text-anchor="middle" fill="white" font-weight="bold">経営者</text>
+                        
+                        <!-- 課題アイコンと接続線 -->
+                        <!-- 事業戦略 -->
+                        <circle cx="300" cy="80" r="35" fill="#E63946" />
+                        <text x="300" y="85" text-anchor="middle" fill="white" font-size="12">事業戦略</text>
+                        <line x1="300" y1="130" x2="300" y2="165" stroke="#333" stroke-width="2" />
+                        
+                        <!-- 財務・資金 -->
+                        <circle cx="450" cy="150" r="35" fill="#2A9D8F" />
+                        <text x="450" y="155" text-anchor="middle" fill="white" font-size="12">財務・資金</text>
+                        <line x1="350" y1="180" x2="415" y2="155" stroke="#333" stroke-width="2" />
+                        
+                        <!-- 人材・組織 -->
+                        <circle cx="420" cy="280" r="35" fill="#457B9D" />
+                        <text x="420" y="285" text-anchor="middle" fill="white" font-size="12">人材・組織</text>
+                        <line x1="350" y1="220" x2="390" y2="260" stroke="#333" stroke-width="2" />
+                        
+                        <!-- 事業承継 -->
+                        <circle cx="300" cy="320" r="35" fill="#8338EC" />
+                        <text x="300" y="325" text-anchor="middle" fill="white" font-size="12">事業承継</text>
+                        <line x1="300" y1="250" x2="300" y2="285" stroke="#333" stroke-width="2" />
+                        
+                        <!-- 個人的課題 -->
+                        <circle cx="180" cy="280" r="35" fill="#F77F00" />
+                        <text x="180" y="285" text-anchor="middle" fill="white" font-size="12">個人的課題</text>
+                        <line x1="250" y1="220" x2="210" y2="260" stroke="#333" stroke-width="2" />
+                        
+                        <!-- 外部環境 -->
+                        <circle cx="150" cy="150" r="35" fill="#A27B5C" />
+                        <text x="150" y="155" text-anchor="middle" fill="white" font-size="12">外部環境</text>
+                        <line x1="250" y1="180" x2="185" y2="155" stroke="#333" stroke-width="2" />
+                        
+                        <!-- 日常業務 -->
+                        <circle cx="220" cy="100" r="35" fill="#6C757D" />
+                        <text x="220" y="105" text-anchor="middle" fill="white" font-size="12">日常業務</text>
+                        <line x1="260" y1="170" x2="230" y2="130" stroke="#333" stroke-width="2" />
+                        
+                        <!-- 課題間の関連線（主要なもののみ） -->
+                        <!-- 事業戦略と財務 -->
+                        <line x1="330" y1="90" x2="420" y2="135" stroke="#333" stroke-width="1.5" stroke-dasharray="5,5" />
+                        
+                        <!-- 事業戦略と人材 -->
+                        <line x1="320" y1="110" x2="390" y2="250" stroke="#333" stroke-width="1.5" stroke-dasharray="5,5" />
+                        
+                        <!-- 財務と事業承継 -->
+                        <line x1="420" y1="175" x2="330" y2="290" stroke="#333" stroke-width="1.5" stroke-dasharray="5,5" />
+                        
+                        <!-- 人材と日常業務 -->
+                        <line x1="390" y1="260" x2="240" y2="130" stroke="#333" stroke-width="1.5" stroke-dasharray="5,5" />
+                        
+                        <!-- 外部環境と事業戦略 -->
+                        <line x1="180" y1="130" x2="270" y2="90" stroke="#333" stroke-width="1.5" stroke-dasharray="5,5" />
+                    </svg>
+                </div>
+                
+                <p style="text-align: center; font-style: italic; margin-top: 10px;">
+                    すべての課題は互いに影響し合います。一つの解決が別の課題を生むこともあります。
+                </p>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">11</div>
+            </div>
+        </div>
+        
+        <!-- スライド12: 業種による優先度の違い -->
+        <div class="slide" id="slide12">
+            <div class="slide-header">
+                <h2>業種による優先度の違い</h2>
+            </div>
+            <div class="slide-content">
+                <div class="heatmap-container">
+                    <table class="heatmap">
+                        <tr>
+                            <th>課題 / 業種</th>
+                            <th>製造業</th>
+                            <th>卸・小売業</th>
+                            <th>サービス業</th>
+                            <th>IT・通信</th>
+                            <th>建設業</th>
+                        </tr>
+                        <tr>
+                            <td>事業戦略</td>
+                            <td class="heatmap-high">高</td>
+                            <td class="heatmap-medium">中</td>
+                            <td class="heatmap-medium">中</td>
+                            <td class="heatmap-high">高</td>
+                            <td class="heatmap-medium">中</td>
+                        </tr>
+                        <tr>
+                            <td>財務・資金</td>
+                            <td class="heatmap-high">高</td>
+                            <td class="heatmap-medium">中</td>
+                            <td class="heatmap-low">低</td>
+                            <td class="heatmap-medium">中</td>
+                            <td class="heatmap-high">高</td>
+                        </tr>
+                        <tr>
+                            <td>人材・組織</td>
+                            <td class="heatmap-medium">中</td>
+                            <td class="heatmap-high">高</td>
+                            <td class="heatmap-high">高</td>
+                            <td class="heatmap-high">高</td>
+                            <td class="heatmap-medium">中</td>
+                        </tr>
+                        <tr>
+                            <td>事業承継</td>
+                            <td class="heatmap-high">高</td>
+                            <td class="heatmap-high">高</td>
+                            <td class="heatmap-low">低</td>
+                            <td class="heatmap-low">低</td>
+                            <td class="heatmap-high">高</td>
+                        </tr>
+                        <tr>
+                            <td>個人的課題</td>
+                            <td class="heatmap-medium">中</td>
+                            <td class="heatmap-medium">中</td>
+                            <td class="heatmap-medium">中</td>
+                            <td class="heatmap-high">高</td>
+                            <td class="heatmap-medium">中</td>
+                        </tr>
+                        <tr>
+                            <td>外部環境</td>
+                            <td class="heatmap-high">高</td>
+                            <td class="heatmap-medium">中</td>
+                            <td class="heatmap-low">低</td>
+                            <td class="heatmap-medium">中</td>
+                            <td class="heatmap-high">高</td>
+                        </tr>
+                        <tr>
+                            <td>日常業務</td>
+                            <td class="heatmap-medium">中</td>
+                            <td class="heatmap-high">高</td>
+                            <td class="heatmap-high">高</td>
+                            <td class="heatmap-medium">中</td>
+                            <td class="heatmap-medium">中</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <p style="font-size: 0.9em; text-align: center; margin-top: 10px;">
+                    ※ 業種によって課題の優先度が異なることを認識する必要があります
+                </p>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">12</div>
+            </div>
+        </div>
+        
+        <!-- スライド13: 規模による優先度の違い -->
+        <div class="slide" id="slide13">
+            <div class="slide-header">
+                <h2>規模による優先度の違い</h2>
+            </div>
+            <div class="slide-content">
+                <div style="display: flex; justify-content: center; margin: 20px 0;">
+                    <svg width="500" height="320" viewBox="0 0 500 320">
+                        <!-- レーダーチャート（小規模企業） -->
+                        <g transform="translate(250, 160)">
+                            <!-- 軸線 -->
+                            <line x1="0" y1="0" x2="0" y2="-140" stroke="#ddd" stroke-width="1" />
+                            <line x1="0" y1="0" x2="120" y2="-70" stroke="#ddd" stroke-width="1" />
+                            <line x1="0" y1="0" x2="120" y2="70" stroke="#ddd" stroke-width="1" />
+                            <line x1="0" y1="0" x2="0" y2="140" stroke="#ddd" stroke-width="1" />
+                            <line x1="0" y1="0" x2="-120" y2="70" stroke="#ddd" stroke-width="1" />
+                            <line x1="0" y1="0" x2="-120" y2="-70" stroke="#ddd" stroke-width="1" />
+                            <line x1="0" y1="0" x2="-70" y2="-120" stroke="#ddd" stroke-width="1" />
+                            
+                            <!-- 目盛り円 -->
+                            <circle cx="0" cy="0" r="50" fill="none" stroke="#ddd" stroke-width="1" />
+                            <circle cx="0" cy="0" r="100" fill="none" stroke="#ddd" stroke-width="1" />
+                            
+                            <!-- 課題ラベル -->
+                            <text x="0" y="-150" text-anchor="middle" font-size="12">事業戦略</text>
+                            <text x="130" y="-75" text-anchor="start" font-size="12">財務・資金</text>
+                            <text x="130" y="75" text-anchor="start" font-size="12">人材・組織</text>
+                            <text x="0" y="155" text-anchor="middle" font-size="12">事業承継</text>
+                            <text x="-130" y="75" text-anchor="end" font-size="12">個人的課題</text>
+                            <text x="-130" y="-75" text-anchor="end" font-size="12">外部環境</text>
+                            <text x="-75" y="-130" text-anchor="end" font-size="12">日常業務</text>
+                            
+                            <!-- 小規模企業のデータプロット -->
+                            <path d="M0,-80 L90,-50 L60,35 L0,40 L-90,50 L-60,-35 L-50,-80 Z" fill="rgba(26, 123, 163, 0.3)" stroke="#1A7BA3" stroke-width="2" />
+                            
+                            <!-- 中規模企業のデータプロット -->
+                            <path d="M0,-120 L70,-40 L100,55 L0,80 L-50,30 L-90,-50 L-40,-70 Z" fill="rgba(15, 52, 96, 0.3)" stroke="#0F3460" stroke-width="2" />
+                        </g>
+                        
+                        <!-- 凡例 -->
+                        <rect x="20" y="20" width="15" height="15" fill="rgba(26, 123, 163, 0.3)" stroke="#1A7BA3" />
+                        <text x="45" y="33" font-size="12">小規模企業 (社員20名以下)</text>
+                        
+                        <rect x="20" y="50" width="15" height="15" fill="rgba(15, 52, 96, 0.3)" stroke="#0F3460" />
+                        <text x="45" y="63" font-size="12">中規模企業 (社員21-100名)</text>
+                    </svg>
+                </div>
+                
+                <div style="width: 80%; margin: 0 auto; background-color: var(--bg-light); padding: 15px; border-radius: 8px;">
+                    <p style="margin: 0; font-size: 0.95em;">
+                        <strong>小規模企業：</strong> 日常業務と財務課題の優先度が高い傾向<br>
+                        <strong>中規模企業：</strong> 人材・組織と事業戦略の優先度が高まる<br>
+                        <strong>大規模企業：</strong> 事業承継や外部環境対応の比重が増加
+                    </p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">13</div>
+            </div>
+        </div>
+        
+        <!-- スライド14: 課題直面時の対応フレームワーク -->
+        <div class="slide" id="slide14">
+            <div class="slide-header">
+                <h2>課題直面時の対応フレームワーク</h2>
+            </div>
+            <div class="slide-content">
+                <div class="framework-steps">
+                    <div class="framework-step">
+                        <div class="framework-step-number">1</div>
+                        <div class="framework-step-title">認識</div>
+                        <p>課題の本質を明確化</p>
+                    </div>
+                    
+                    <div class="framework-step">
+                        <div class="framework-step-number">2</div>
+                        <div class="framework-step-title">優先順位</div>
+                        <p>影響度と緊急度で評価</p>
+                    </div>
+                    
+                    <div class="framework-step">
+                        <div class="framework-step-number">3</div>
+                        <div class="framework-step-title">資源配分</div>
+                        <p>時間、人材、資金の最適配分</p>
+                    </div>
+                    
+                    <div class="framework-step">
+                        <div class="framework-step-number">4</div>
+                        <div class="framework-step-title">実行と検証</div>
+                        <p>小さく始め、検証しながら調整</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <p>適切なフレームワークを活用することで、<br>複雑な課題も体系的に対応できるようになります。</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">14</div>
+            </div>
+        </div>
+        
+        <!-- スライド15: まとめ -->
+        <div class="slide" id="slide15">
+            <div class="slide-header">
+                <h2>まとめ</h2>
+                <h3>重要ポイント</h3>
+            </div>
+            <div class="slide-content">
+                <div style="display: flex; flex-direction: column; gap: 25px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background-color: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">1</div>
+                        <p style="font-size: 1.1em; margin: 0;">7つの課題は<strong>すべての経営者</strong>が直面する可能性がある</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background-color: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">2</div>
+                        <p style="font-size: 1.1em; margin: 0;">課題には<strong>相互関連性</strong>があり、一つの解決が他の課題に影響する</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background-color: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">3</div>
+                        <p style="font-size: 1.1em; margin: 0;"><strong>業種や規模</strong>によって課題の優先度や現れ方が異なる</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background-color: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">4</div>
+                        <p style="font-size: 1.1em; margin: 0;"><strong>体系的アプローチ</strong>で課題に向き合うことが成功への鍵</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">15</div>
+            </div>
+        </div>
+        
+        <!-- スライド16: 実践ヒント -->
+        <div class="slide" id="slide16">
+            <div class="slide-header">
+                <h2>実践ヒント</h2>
+                <h3>課題に向き合うために</h3>
+            </div>
+            <div class="slide-content">
+                <ul class="check-list">
+                    <li>自社の<strong>課題マップ</strong>を作成し、7つの領域における現状を可視化する</li>
+                    <li>月に一度は<strong>俯瞰的視点</strong>で自社の課題を見直す時間を作る</li>
+                    <li>同業・異業種の経営者との<strong>対話の場</strong>を持ち、課題への向き合い方を学ぶ</li>
+                    <li>課題ごとに<strong>支援リソース</strong>（人・ツール・情報源）をリスト化しておく</li>
+                </ul>
+                <p style="margin-top: 30px; text-align: center; font-style: italic; color: #666;">
+                    「課題を見つけるのは簡単。難しいのは優先順位をつけて一つずつ解決していくこと」
+                </p>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">16</div>
+            </div>
+        </div>
+        
+        <!-- スライド17: 質問と対話 -->
+        <div class="slide" id="slide17">
+            <div class="slide-header">
+                <h2>質問と対話</h2>
+                <h3>ディスカッションポイント</h3>
+            </div>
+            <div class="slide-content">
+                <div style="background-color: var(--bg-light); padding: 30px; border-radius: 10px; margin-bottom: 30px;">
+                    <p style="font-size: 1.3em; text-align: center; margin: 0;">
+                        現在あなたが最も重視している課題は何ですか？<br>
+                        それに対してどのようなアプローチを取られていますか？
+                    </p>
+                </div>
+                <div style="display: flex; justify-content: center; margin-top: 20px;">
+                    <svg width="200" height="120" viewBox="0 0 200 120">
+                        <!-- 対話を象徴する吹き出しアイコン -->
+                        <path d="M50,10 L150,10 C165,10 180,25 180,40 L180,70 C180,85 165,100 150,100 L120,100 L100,120 L80,100 L50,100 C35,100 20,85 20,70 L20,40 C20,25 35,10 50,10 Z" fill="none" stroke="var(--secondary)" stroke-width="3" />
+                        <circle cx="70" cy="55" r="8" fill="var(--secondary)" />
+                        <circle cx="100" cy="55" r="8" fill="var(--secondary)" />
+                        <circle cx="130" cy="55" r="8" fill="var(--secondary)" />
+                    </svg>
+                </div>
+                <p style="text-align: center; margin-top: 20px;">
+                    次回：「経営支援の真価」をお楽しみに
+                </p>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-logo">経営者支援セミナー</div>
+                <div class="slide-number">17</div>
+            </div>
+        </div>
+        
+        <!-- ナビゲーションコントロール -->
+        <div class="slide-nav">
+            <button class="nav-btn" id="prev-btn">◀</button>
+            <button class="nav-btn" id="next-btn">▶</button>
+        </div>
+        
+        <!-- スライドカウンター -->
+        <div class="slide-counter" id="slide-counter">1 / 17</div>
+    </div>
+    
+    <script>
+        // スライド制御スクリプト
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+            
+            // スライドを表示する関数
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[index].classList.add('active');
+                slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            }
+            
+            // 次のスライドへ
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // 前のスライドへ
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // イベントリスナー
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // キーボードイベント
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                }
+            });
+            
+            // 初期スライド表示
+            showSlide(currentSlide);
+        });
+    </script>
+</body>
+</html>
